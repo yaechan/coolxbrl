@@ -1,6 +1,6 @@
 require "coolxbrl"
 require "pp"
 
-file_path = File.expand_path("../../data/S100AG14", __FILE__)
+file_path = "/home/yuki/ruby/coolxbrl/data/S100AG14"
 
 pp CoolXBRL::EDINET.parse(file_path)
