@@ -1,0 +1,33 @@
+require "coolxbrl/edinet/balance_sheet"
+require "coolxbrl/edinet/profit_and_loss_statement"
+require "coolxbrl/edinet/statement_of_cash_flow"
+require "coolxbrl/edinet/statement_of_comprehensive_income"
+require "coolxbrl/edinet/statement_of_shareholders_equity"
+require "coolxbrl/edinet/document_information"
+require "coolxbrl/edinet/presentation"
+
+module CoolXBRL
+  module EDINET
+    class << self
+      def parse(dir)
+        #Dir.chdir(dir)
+        #doc = File.open(Dir.glob("XBRL/PublicDoc/**/*.xbrl").first) {|file| Nokogiri::XML file }
+        #read doc
+        Presentation.parse dir
+
+      end
+
+      def get_file(dir, pattern)
+        Dir.chdir(dir)
+        File.open(Dir.glob("XBRL/PublicDoc/**/#{pattern}").first) {|file| Nokogiri::XML file }
+      end
+
+      private
+      def read(doc)
+      end
+
+      def get_xbrl(path)
+      end
+    end
+  end
+end

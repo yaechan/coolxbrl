@@ -1,0 +1,8 @@
+require "nokogiri"
+
+require "coolxbrl/version"
+require "coolxbrl/edinet"
+
+module CoolXBRL
+  # Your code goes here...
+end
