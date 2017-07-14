@@ -23,7 +23,7 @@ module CoolXBRL
             table.xpath("link:presentationArc").each do |arc|
               Node.new(parent_name: arc.xpath("@xlink:from").to_s,
                        child_name:  arc.xpath("@xlink:to").to_s,
-                       order: arc.xpath("order"))
+                       order:       arc.xpath("@order").to_s)
             end
             #table.xpath("//link:loc/@xlink:href") do |location_href|
             #  nodes[:name] = location_href
