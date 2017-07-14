@@ -8,7 +8,7 @@ module CoolXBRL
         attr_accessor :name, :locator, :children, :order, :preferred_label
 
         def initialize(parent: nil, child: nil, order: nil, preferred_label: "")
-          if parent = Node.exist?(parent_name[:name])
+          if parent = Node.exist?(parent[:name])
             parent.children << create_children(child, order, preferred_label)
 
             #@@child_nodes << parent.children.last
