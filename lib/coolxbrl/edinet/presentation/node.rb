@@ -5,7 +5,7 @@ module CoolXBRL
         @@nodes = []
         @@child_nodes = []
 
-        attr_accessor :name, :children
+        attr_accessor :name, :children, :order
 
         def initialize(parent_name: nil, child_name: nil, order: nil)
           if parent = Node.exist?(parent_name)
