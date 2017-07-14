@@ -16,7 +16,7 @@ module CoolXBRL
         end
 
         def to_hash(tables)
-          array = {}
+          hash = {}
           tables.each do |table|
             Node.clear_class_variables
             #table.xpath("link:presentationArc[contains(./@xlink:from, 'Heading')]").each do |heading|
@@ -24,15 +24,16 @@ module CoolXBRL
               Node.new(parent_name: arc.xpath("@xlink:from").to_s,
                        child_name:  arc.xpath("@xlink:to").to_s,
                        order:       arc.xpath("@order").to_s)
+              puts arc.xpath("@preferredLabel").to_s
             end
             #table.xpath("//link:loc/@xlink:href") do |location_href|
             #  nodes[:name] = location_href
             #  if table.at_xpath("//")
             #end
 
-            array[table.xpath("@xlink:role").to_s] = Node.top_node
+            hash[table.xpath("@xlink:role").to_s] = Node.top_node
           end
-          array
+          hash
         end
       end
     end
