@@ -7,14 +7,14 @@ module CoolXBRL
 
         attr_accessor :name, :children
 
-        def initialize(parent_name, child_name=nil)
+        def initialize(parent_name: nil, child_name: nil, order: nil)
           if parent = Node.exist?(parent_name)
-            parent.children << create_children(child_name)
+            parent.children << create_children(child_name, order)
 
             @@child_nodes << parent.children.last
           else
             @name = parent_name
-            @children = child_name ? [create_children(child_name)] : []
+            @children = child_name ? [create_children(child_name, order)] : []
 
             @@nodes << self
             @@child_nodes << @children.first if child_name
@@ -42,8 +42,10 @@ module CoolXBRL
         end
 
         private
-        def create_children(child_name)
-          Node.exist?(child_name) || Node.new(child_name)
+        def create_children(child_name, order)
+          child = Node.exist?(child_name) || Node.new(parent_name: child_name)
+          child.order = order
+          child
         end
       end
     end
