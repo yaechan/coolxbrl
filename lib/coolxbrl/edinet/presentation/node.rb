@@ -3,7 +3,7 @@ module CoolXBRL
     class Presentation
       class Node
         @@nodes = []
-        @@child_nodes = []
+        #@@child_nodes = []
 
         attr_accessor :name, :children, :order
 
@@ -11,13 +11,13 @@ module CoolXBRL
           if parent = Node.exist?(parent_name)
             parent.children << create_children(child_name, order)
 
-            @@child_nodes << parent.children.last
+            #@@child_nodes << parent.children.last
           else
             @name = parent_name
             @children = child_name ? [create_children(child_name, order)] : []
 
             @@nodes << self
-            @@child_nodes << @children.first if child_name
+            #@@child_nodes << @children.first if child_name
           end
         end
 
@@ -38,7 +38,7 @@ module CoolXBRL
 
           def clear_class_variables
             @@nodes = []
-            @@child_nodes = []
+            #@@child_nodes = []
           end
         end
 
