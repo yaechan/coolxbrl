@@ -3,4 +3,4 @@ require "pp"
 
 file_path = "/home/yuki/ruby/coolxbrl/data/S100AG14"
 
-CoolXBRL::EDINET.parse(file_path)
+pp CoolXBRL::EDINET.parse(file_path)

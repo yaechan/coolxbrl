@@ -5,16 +5,16 @@ module CoolXBRL
         @@nodes = []
         #@@child_nodes = []
 
-        attr_accessor :name, :children, :order
+        attr_accessor :name, :children, :order, :preferred_label
 
-        def initialize(parent_name: nil, child_name: nil, order: nil)
+        def initialize(parent_name: nil, child_name: nil, order: nil, preferred_label: "")
           if parent = Node.exist?(parent_name)
-            parent.children << create_children(child_name, order)
+            parent.children << create_children(child_name, order, preferred_label)
 
             #@@child_nodes << parent.children.last
           else
             @name = parent_name
-            @children = child_name ? [create_children(child_name, order)] : []
+            @children = child_name ? [create_children(child_name, order, preferred_label)] : []
 
             @@nodes << self
             #@@child_nodes << @children.first if child_name
@@ -43,9 +43,10 @@ module CoolXBRL
         end
 
         private
-        def create_children(child_name, order)
+        def create_children(child_name, order, preferred_label)
           child = Node.exist?(child_name) || Node.new(parent_name: child_name)
           child.order = order
+          child.preferred_label = preferred_label unless preferred_label.empty?
           child
         end
       end
