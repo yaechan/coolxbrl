@@ -6,10 +6,10 @@ module CoolXBRL
       class << self
         def parse(dir)
           presentation_doc = CoolXBRL::EDINET.get_file(dir, "*_pre.xml")
-          get_financial_statements(presentation_doc)
+          get_financial_accounts(presentation_doc)
         end
 
-        def get_financial_statements(presentation_doc)
+        def get_financial_accounts(presentation_doc)
           tables = presentation_doc.xpath("//link:presentationLink[contains(./@xlink:role, 'http://disclosure.edinet-fsa.go.jp/role/jppfs/')]")
 
           to_hash tables
