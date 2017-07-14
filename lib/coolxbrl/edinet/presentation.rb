@@ -21,7 +21,7 @@ module CoolXBRL
             Node.clear_class_variables
             #table.xpath("link:presentationArc[contains(./@xlink:from, 'Heading')]").each do |heading|
             table.xpath("link:presentationArc").each do |arc|
-              Node.new(parent_name: arc.at_xpath("@xlink:from"),
+              Node.new(parent_name: arc.at_xpath("@xlink:from").to_s,
                        child_name:  arc.at_xpath("@xlink:to").to_s,
                        order:       arc.at_xpath("@order").to_s)
               #puts arc.at_xpath("@preferredLabel")
