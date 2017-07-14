@@ -24,7 +24,7 @@ module CoolXBRL
               Node.new(parent_name: arc.xpath("@xlink:from").to_s,
                        child_name:  arc.xpath("@xlink:to").to_s,
                        order:       arc.xpath("@order").to_s)
-              puts arc.xpath("@preferredLabel").to_s.class
+              puts arc.xpath("@preferredLabel").nil?
             end
             #table.xpath("//link:loc/@xlink:href") do |location_href|
             #  nodes[:name] = location_href
