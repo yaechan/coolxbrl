@@ -32,8 +32,9 @@ module XSD
   end
 
   def get_edinet_files(xsd)
-    @@label.store(*get_edinet_file(xsd, "/_lab.xml"))
-    @@label_en.store(*get_edinet_file(xsd, "_lab-en.xml"))
+    pp get_edinet_file(xsd, "/_lab.xml")
+    @@label.store(get_edinet_file(xsd, "/_lab.xml"))
+    @@label_en.store(get_edinet_file(xsd, "_lab-en.xml"))
   end
 
   def get_edinet_file(xsd, pattern)
