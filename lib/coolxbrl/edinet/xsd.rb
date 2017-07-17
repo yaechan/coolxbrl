@@ -40,6 +40,7 @@ module XSD
     puts "//link:linkbaseRef[contains(./@xlink:href, '#{pattern}')]/@xlink:href"
     xsd.xpath("//link:linkbaseRef[contains(./@xlink:href, '#{pattern}')]/@xlink:href").each do |href|
       if /^http\:\/\/disclosure\.edinet\-fsa\.go\.jp\/taxonomy\/jppfs\// =~ href
+        puts "aa"
         return href, open(href) {|file| Nokogiri::XML file }
       end
     end
