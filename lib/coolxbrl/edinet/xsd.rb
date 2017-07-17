@@ -6,6 +6,7 @@ module XSD
   def get_taxonomy(dir)
     get_presenters_files(dir)
     get_edinet_files(@@xsd)
+    puts @@xsd
   end
 
   def get_presenters_files(dir)
