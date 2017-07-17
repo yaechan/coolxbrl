@@ -4,9 +4,9 @@ module CoolXBRL
   module EDINET
     class Presentation
       class << self
-        def parse(dir)
+        def parse(presentation_doc)
           #presentation_doc = CoolXBRL::EDINET.get_file(dir, "*_pre.xml")
-          get_financial_accounts(presentation)
+          get_financial_accounts(presentation_doc)
         end
 
         def get_financial_accounts(presentation_doc)
