@@ -13,9 +13,6 @@ module CoolXBRL
 
     class << self
       def parse(dir)
-        #Dir.chdir(dir)
-        #doc = File.open(Dir.glob("XBRL/PublicDoc/**/*.xbrl").first) {|file| Nokogiri::XML file }
-        #read doc
         get_taxonomy dir
         Presentation.parse presentation
 
