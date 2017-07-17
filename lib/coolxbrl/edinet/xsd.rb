@@ -6,15 +6,14 @@ module XSD
   def get_taxonomy(dir)
     get_presenters_files(dir)
     get_edinet_files(@@xsd)
-    puts @@xsd
   end
 
   def get_presenters_files(dir)
-    @@xsd          = get_presenters_file(dir, "*.xsd")
-    @@presentation = get_presenters_file(dir, "*_pre.xml")
-    @@label        = get_presenters_file(dir, "*_lab.xml", true)
-    @@label_en     = get_presenters_file(dir, "*_lab-en.xml", true)
-    @@xbrl         = get_presenters_file(dir, "*.xbrl")
+    @xsd          = get_presenters_file(dir, "*.xsd")
+    @presentation = get_presenters_file(dir, "*_pre.xml")
+    @label        = get_presenters_file(dir, "*_lab.xml", true)
+    @label_en     = get_presenters_file(dir, "*_lab-en.xml", true)
+    @xbrl         = get_presenters_file(dir, "*.xbrl")
   end
 
   def get_presenters_file(dir, pattern, hash_flag=false)
@@ -33,8 +32,8 @@ module XSD
   end
 
   def get_edinet_files(xsd)
-    @@label.store(*get_edinet_file(xsd, "_lab.xml"))
-    @@label_en.store(*get_edinet_file(xsd, "_lab-en.xml"))
+    @label.store(*get_edinet_file(xsd, "_lab.xml"))
+    @label_en.store(*get_edinet_file(xsd, "_lab-en.xml"))
   end
 
   def get_edinet_file(xsd, pattern)
