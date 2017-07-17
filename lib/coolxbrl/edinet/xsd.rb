@@ -39,6 +39,7 @@ module XSD
 
   def get_edinet_file(xsd, pattern)
     xsd.xpath("//link:linkbaseRef[contains(./@xlink:href, '#{pattern}')]/@xlink:href").each do |href|
+      puts href
       if /^http\:\/\/disclosure\.edinet\-fsa\.go\.jp\/taxonomy\/jppfs\// =~ href
         return href, open(href) {|file| Nokogiri::XML file }
       end
