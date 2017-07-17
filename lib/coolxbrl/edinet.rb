@@ -17,7 +17,7 @@ module CoolXBRL
         #doc = File.open(Dir.glob("XBRL/PublicDoc/**/*.xbrl").first) {|file| Nokogiri::XML file }
         #read doc
         get_taxonomy dir
-        return xsd, presentation, label, label_en, xbrl
+        return xsd
         #Presentation.parse dir
 
       end
