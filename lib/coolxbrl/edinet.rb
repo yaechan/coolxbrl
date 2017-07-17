@@ -9,7 +9,7 @@ require "coolxbrl/edinet/xsd"
 
 module CoolXBRL
   module EDINET
-    include XSD
+    extend XSD
 
     class << self
       def parse(dir)
