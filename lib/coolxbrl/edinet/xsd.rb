@@ -32,6 +32,7 @@ module XSD
   end
 
   def get_edinet_files(xsd)
+    puts get_edinet_file(xsd, "_lab.xml")
     @@label.store(get_edinet_file(xsd, "_lab.xml"))
     @@label_en.store(get_edinet_file(xsd, "_lab-en.xml"))
   end
@@ -40,7 +41,6 @@ module XSD
     puts "//link:linkbaseRef[contains(./@xlink:href, '#{pattern}')]/@xlink:href"
     xsd.xpath("//link:linkbaseRef[contains(./@xlink:href, '#{pattern}')]/@xlink:href").each do |href|
       if /^http\:\/\/disclosure\.edinet\-fsa\.go\.jp\/taxonomy\/jppfs\// =~ href
-        puts "aa"
         return href, open(href) {|file| Nokogiri::XML file }
       end
     end
