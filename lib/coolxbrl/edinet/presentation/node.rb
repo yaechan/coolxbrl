@@ -34,6 +34,7 @@ module CoolXBRL
             #@@nodes - @@child_nodes
             node = @@nodes.find {|node| !node.instance_variable_defined?(:@order)}
             node.label ||= CoolXBRL::EDINET.get_label(node.locator)
+            node
           end
 
           def exist?(parent_name)
