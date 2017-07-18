@@ -4,8 +4,7 @@ module Label
 
   def get_label(locator, preferred_label, english_flag=false)
     name, doc, href, role = create_params(locator, preferred_label, english_flag)
-puts doc.methods
-exit 0
+
     locator_label = doc.at_xpath("//link:loc[@xlink:href='#{href}']/@xlink:label").to_s
     #確実な検索。時間が掛かる
     #doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
