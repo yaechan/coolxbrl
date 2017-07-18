@@ -6,7 +6,7 @@ module Label
     label_files.each do |name, doc|
       if /http\:\/\/disclosure\.edinet\-fsa\.go\.jp\/taxonomy\/jppfs\// =~ name
         puts Pathname(locator).relative_path_from(Pathname(name)).to_s
-        #puts doc.xpath("//link:loc[1]/@xlink:href").to_s
+        puts doc.xpath("//link:loc[1]/@xlink:href").to_s
       else
       end
     end
