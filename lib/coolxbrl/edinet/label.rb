@@ -8,6 +8,7 @@ module Label
       name, doc = label_files[:edinet]
       locator_label = doc.xpath("//link:loc[contains(./@xlink:href, '#{File.basename(locator)}')]/@xlink:label").to_s
         role = preferred_label || STANDARD_LABEL
+        puts locator_label
         puts locator
         puts role
       doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
