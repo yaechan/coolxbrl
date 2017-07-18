@@ -12,7 +12,7 @@ module Label
         puts locator
         puts role
       doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
-        puts doc.xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()")
+        puts doc.xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").nil?
       end
         puts "-"*30
     else
