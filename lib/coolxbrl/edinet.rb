@@ -6,6 +6,7 @@ require "coolxbrl/edinet/statement_of_shareholders_equity"
 require "coolxbrl/edinet/document_information"
 require "coolxbrl/edinet/presentation"
 require "coolxbrl/edinet/xsd"
+require "coolxbrl/edinet/label"
 
 module CoolXBRL
   module EDINET

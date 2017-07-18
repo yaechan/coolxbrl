@@ -2,6 +2,8 @@ module CoolXBRL
   module EDINET
     class Presentation
       class Node
+        extend Label
+
         @@nodes = []
         #@@child_nodes = []
 
@@ -16,6 +18,7 @@ module CoolXBRL
             @name     = parent[:name]
             @locator  = parent[:locator]
             @children = child ? [create_children(child, order, preferred_label)] : []
+            get_label(@locator)
 
             @@nodes << self
             #@@child_nodes << @children.first if child_name
