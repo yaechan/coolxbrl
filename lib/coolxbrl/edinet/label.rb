@@ -7,7 +7,7 @@ module Label
       if /http\:\/\/disclosure\.edinet\-fsa\.go\.jp\/taxonomy\/jppfs\// =~ name
         puts locator
         puts name
-        puts Pathname(name).relative_path_from(Pathname(locator)).to_s
+        puts Pathname(locator).relative_path_from(Pathname(name)).to_s
         puts doc.xpath("//link:loc[1]/@xlink:href").to_s
       else
       end
