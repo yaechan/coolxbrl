@@ -22,7 +22,8 @@ module XSD
     if hash_flag
       result = {}
       files.each do |file_name|
-        result[File.join(dir, file_name)] = File.open(file_name) {|file| Nokogiri::XML file }
+        #result[File.join(dir, file_name)] = File.open(file_name) {|file| Nokogiri::XML file }
+        result[:presenter] = [File.join(dir, file_name), File.open(file_name) {|file| Nokogiri::XML file }]
       end
     else
       result = File.open(files.first) {|file| Nokogiri::XML file }
@@ -32,8 +33,10 @@ module XSD
   end
 
   def get_edinet_files(xsd)
-    @label.store(*get_edinet_file(xsd, "_lab.xml"))
-    @label_en.store(*get_edinet_file(xsd, "_lab-en.xml"))
+    #@label.store(*get_edinet_file(xsd, "_lab.xml"))
+    #@label_en.store(*get_edinet_file(xsd, "_lab-en.xml"))
+    @label[:edinet] = get_edinet_file(xsd, "_lab.xml")
+    @label_en[:edinet] = get_edinet_file(xsd, "_lab-en.xml")
   end
 
   def get_edinet_file(xsd, pattern)

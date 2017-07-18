@@ -17,7 +17,7 @@ module CoolXBRL
       def parse(dir)
         get_taxonomy dir
         Presentation.parse presentation
-label.keys
+        "zzz.."
       end
 
 #      def get_file(dir, pattern)
