@@ -14,6 +14,7 @@ module Label
       end
     else
       name, doc = label_files[:presenter]
+      nil
     end
   end
 end
