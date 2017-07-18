@@ -10,6 +10,7 @@ module Label
       doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
         role = preferred_label || STANDARD_LABEL
         puts locator
+        puts role
         puts doc.xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()")
         puts "-"*30
       end
