@@ -3,7 +3,7 @@ module Label
     label_files = english_flag ? CoolXBRL::EDINET.label_en : CoolXBRL::EDINET.label
     label_files.each do |name, doc|
       if /http\:\/\/disclosure\.edinet\-fsa\.go\.jp\/taxonomy\/jppfs\// =~ name
-        puts doc.xpath("//link:loc/@xlink:href").to_s
+        puts doc.xpath("//link:loc[1]/@xlink:href").to_s
       else
       end
     end
