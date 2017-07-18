@@ -5,7 +5,7 @@ module CoolXBRL
         @@nodes = []
         #@@child_nodes = []
 
-        attr_accessor :name, :locator, :children, :order, :preferred_label
+        attr_accessor :name, :locator, :children, :order, :preferred_label, :label
 
         def initialize(parent: nil, child: nil, order: nil, preferred_label: "")
           preferred_label = preferred_label.empty? ? nil : preferred_label
@@ -48,7 +48,7 @@ module CoolXBRL
         private
         def create_children(child, order, preferred_label)
           child_node = Node.exist?(child[:name]) || Node.new(parent: child)
-          puts CoolXBRL::EDINET.get_label(child[:locator], preferred_label)
+          child_node.label ||= CoolXBRL::EDINET.get_label(child[:locator], preferred_label)
           child_node.order = order
           child_node.preferred_label = preferred_label unless preferred_label.nil?
           child_node

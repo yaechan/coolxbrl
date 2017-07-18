@@ -7,9 +7,9 @@ module Label
     if /http\:\/\// =~ locator
       name, doc = label_files[:edinet]
       role = preferred_label || STANDARD_LABEL
-      locator_label = doc.xpath("//link:loc[@xlink:href='../#{File.basename(locator)}']/@xlink:label").to_s
+      locator_label = doc.at_xpath("//link:loc[@xlink:href='../#{File.basename(locator)}']/@xlink:label").to_s
       doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
-        label = doc.xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").to_s
+        label = doc.at_xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").to_s
         break label unless label.empty?
       end
     else
