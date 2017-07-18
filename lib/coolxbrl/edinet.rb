@@ -11,6 +11,7 @@ require "coolxbrl/edinet/label"
 module CoolXBRL
   module EDINET
     extend XSD
+    include Label
 
     class << self
       def parse(dir)

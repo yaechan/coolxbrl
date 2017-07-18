@@ -2,8 +2,6 @@ module CoolXBRL
   module EDINET
     class Presentation
       class Node
-        include Label
-
         @@nodes = []
         #@@child_nodes = []
 
