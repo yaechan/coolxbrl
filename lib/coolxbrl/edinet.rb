@@ -5,6 +5,7 @@ require "coolxbrl/edinet/statement_of_comprehensive_income"
 require "coolxbrl/edinet/statement_of_shareholders_equity"
 require "coolxbrl/edinet/document_information"
 require "coolxbrl/edinet/presentation"
+require "coolxbrl/edinet/xbrl"
 require "coolxbrl/edinet/xsd"
 require "coolxbrl/edinet/label"
 

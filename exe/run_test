@@ -5,3 +5,7 @@ require "pp"
 file_path = "S:/201708_xbrl/data/S100AG14"
 
 pp CoolXBRL::EDINET.parse(file_path)
+
+#CoolXBRL::EDINET.parse(file_path).each do |role, node|
+#
+#end

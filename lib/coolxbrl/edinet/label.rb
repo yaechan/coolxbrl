@@ -2,7 +2,7 @@ module Label
   STANDARD_LABEL = "http://www.xbrl.org/2003/role/label"
   VERBOSE_LABEL  = "http://www.xbrl.org/2003/role/verboseLabel"
 
-  def get_label(locator, preferred_label, english_flag=false)
+  def get_label(locator, preferred_label=nil, english_flag=false)
     name, doc, href, role = create_params(locator, preferred_label, english_flag)
 
     locator_label = doc.at_xpath("//link:loc[@xlink:href='#{href}']/@xlink:label").to_s

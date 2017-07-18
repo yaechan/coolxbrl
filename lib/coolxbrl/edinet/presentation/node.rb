@@ -32,7 +32,8 @@ module CoolXBRL
           #TODO order属性が必ず入るなら（order=1）、orderの有無でtop_nodeの判断をしてもいいかも。
           def top_node
             #@@nodes - @@child_nodes
-            @@nodes.find {|node| !node.instance_variable_defined?(:@order)}
+            node = @@nodes.find {|node| !node.instance_variable_defined?(:@order)}
+            node.label ||= CoolXBRL::EDINET.get_label(node.locator)
           end
 
           def exist?(parent_name)
