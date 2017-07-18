@@ -16,7 +16,7 @@ module Label
     name, doc, href, role = create_params(locator, preferred_label, english_flag)
 
     locator_label = doc.at_xpath("//link:loc[@xlink:href='#{href}']/@xlink:label").to_s
-    doc.xpath("//link:label[contains(./@xlink:label, 'label_#{locator_label}') and @xlink:role='#{role}']/text()").to_s
+    doc.xpath("//link:label[contains(./@xlink:label, '#{locator_label}') and @xlink:role='#{role}']/text()").to_s
     #doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
     #  label = doc.at_xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").to_s
     #  break label unless label.empty?
