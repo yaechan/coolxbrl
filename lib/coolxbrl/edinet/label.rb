@@ -8,7 +8,7 @@ module Label
         puts locator
         puts name
         puts Pathname(locator).relative_path_from(Pathname(name)).to_s
-        puts File.expand_path(doc.xpath("//link:loc[1]/@xlink:href").to_s, name)
+        puts File.join(name, doc.xpath("//link:loc[1]/@xlink:href").to_s)
       else
       end
     end
