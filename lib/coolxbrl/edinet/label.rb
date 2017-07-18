@@ -26,9 +26,9 @@ module Label
     label_files = english_flag ? CoolXBRL::EDINET.label_en : CoolXBRL::EDINET.label
 
     if /http\:\/\// =~ locator
-      return label_files[:edinet], "../#{File.basename(locator)}"
+      return *label_files[:edinet], "../#{File.basename(locator)}"
     else
-      return label_files[:presenter], locator
+      return *label_files[:presenter], locator
     end
   end
 end
