@@ -6,7 +6,7 @@ module Label
     label_files = english_flag ? CoolXBRL::EDINET.label_en : CoolXBRL::EDINET.label
     if /http\:\/\// =~ locator
       name, doc = label_files[:edinet]
-      locator_label = doc.xpath("//link:loc[contains(./@xlink:href, '#{File.basename(locator)}')]/@xlink:label").to_s
+      locator_label = doc.xpath("//link:loc[@xlink:href='../#{File.basename(locator)}']/@xlink:label").to_s
         role = preferred_label || STANDARD_LABEL
         puts locator_label
         puts locator
