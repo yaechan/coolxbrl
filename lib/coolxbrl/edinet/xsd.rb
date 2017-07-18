@@ -22,7 +22,7 @@ module XSD
     if hash_flag
       result = {}
       files.each do |file_name|
-        result[file_name] = File.open(file_name) {|file| Nokogiri::XML file }
+        result[File.join(dir, file_name)] = File.open(file_name) {|file| Nokogiri::XML file }
       end
     else
       result = File.open(files.first) {|file| Nokogiri::XML file }
