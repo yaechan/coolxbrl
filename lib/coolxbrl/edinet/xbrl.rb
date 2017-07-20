@@ -12,8 +12,8 @@ module CoolXBRL
           doc = CoolXBRL::EDINET.xbrl
           puts name
           doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3})_/, ":")}").each do |data|
-            puts data.at_xpath("text()").to_s
             puts data.at_xpath("@contextRef").to_s
+            puts data.at_xpath("text()").nil?
           end
           puts "-"*30
           #Data.new(value, contextRef, unitRef, decimals)
