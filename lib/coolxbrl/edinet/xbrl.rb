@@ -10,7 +10,7 @@ module CoolXBRL
 
         def get_data(name)
           doc = CoolXBRL::EDINET.xbrl
-          doc.xpath("//#{name.gsub(/(?<=jppsf\_.{3})_/, ":")}").each do |data|
+          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3})_/, ":")}").each do |data|
             puts data.at_xpath("text()").to_s
             puts data.at_xpath("@contextRef").to_s
           end
