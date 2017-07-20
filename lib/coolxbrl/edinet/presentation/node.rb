@@ -5,7 +5,7 @@ module CoolXBRL
         @@nodes = []
         #@@child_nodes = []
 
-        attr_accessor :name, :locator, :children, :order, :preferred_label, :label
+        attr_accessor :name, :locator, :children, :order, :preferred_label, :label, :data
 
         def initialize(parent: nil, child: nil, order: nil, preferred_label: "")
           preferred_label = preferred_label.empty? ? nil : preferred_label
