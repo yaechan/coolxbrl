@@ -10,13 +10,11 @@ module CoolXBRL
 
         def get_data(name)
           doc = CoolXBRL::EDINET.xbrl
-          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3})_/, ":")}").each_with_object([]) do |data|
+          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3})_/, ":")}").inject([]) do |stack, data|
             Data.new(data.at_xpath("text()").to_s,
                      data.at_xpath("@contextRef").to_s,
                      data.at_xpath("@unitRef").to_s,
                      data.at_xpath("@decimals").to_s)
-
-
           end
         end
       end
