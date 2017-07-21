@@ -14,7 +14,10 @@ module CoolXBRL
 
         def create_context_label(context_ref)
           context_ref.scan(/(?<=Instant\_|Duration\_|Member\_).+?Member/).inject([]) do |stack, context|
-            stack << CoolXBRL::EDINET::Label.get_context_label(context)
+            #stack << CoolXBRL::EDINET::Label.get_context_label(context)
+            a = CoolXBRL::EDINET::Label.get_context_label(context)
+            puts a
+            stack << a
           end
         end
       end
