@@ -24,7 +24,7 @@ module CoolXBRL
           end
         end
 
-        def create_context_prams(context, english_flag)
+        def create_context_params(context, english_flag)
           label_files = english_flag ? CoolXBRL::EDINET.label_en : CoolXBRL::EDINET.label
           role        = STANDARD_LABEL
 
