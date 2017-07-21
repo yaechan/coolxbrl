@@ -13,8 +13,8 @@ module CoolXBRL
         end
 
         def create_context_label(context_ref)
-          context_ref.scan(/(?<=Instant\_|Duration\_|Member\_).+?Member/) do |member|
-
+          context_ref.scan(/(?<=Instant\_|Duration\_|Member\_).+?Member/).inject([]) do |stack, member|
+            #CoolXBRL::EDINET::Label.get_label(child[:locator], preferred_label)
           end
         end
       end
