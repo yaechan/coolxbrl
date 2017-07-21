@@ -42,6 +42,7 @@ module CoolXBRL
           #  break label unless label.empty?
           #end
           #不確実かもしれない検索。多少時間が速くなる
+          puts context
           doc.xpath("//link:label[contains(./@xlink:label, '#{context}') and @xlink:role='#{role}']/text()").to_s
         end
 

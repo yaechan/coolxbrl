@@ -52,7 +52,6 @@ module CoolXBRL
           child_node = Node.exist?(child[:name]) || Node.new(parent: child)
           child_node.label ||= CoolXBRL::EDINET::Label.get_label(child[:locator], preferred_label)
           child_node.data ||= CoolXBRL::EDINET::XBRL.get_data(child[:name])
-          puts child_node.data.to_s
           child_node.order = order
           child_node.preferred_label = preferred_label unless preferred_label.nil?
           child_node
