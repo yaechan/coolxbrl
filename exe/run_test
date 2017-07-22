@@ -4,7 +4,8 @@ require "pp"
 file_path = "/home/yuki/ruby/coolxbrl/data/S100AG14"
 #file_path = "S:/201708_xbrl/data/S100AG14"
 
-pp CoolXBRL::EDINET.parse(file_path)
+#pp CoolXBRL::EDINET.parse(file_path)
+pp CoolXBRL::EDINET.parse(file_path, :bs, true, :ja)
 
 #CoolXBRL::EDINET.parse(file_path).each do |role, node|
 #  puts node.label

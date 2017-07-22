@@ -1,7 +1,7 @@
 module CoolXBRL
   module EDINET
     class Label
-      DEFAULT_LANGUAGE = "ja"
+      DEFAULT_LANGUAGE = :ja
       STANDARD_LABEL   = "http://www.xbrl.org/2003/role/label"
       VERBOSE_LABEL    = "http://www.xbrl.org/2003/role/verboseLabel"
 

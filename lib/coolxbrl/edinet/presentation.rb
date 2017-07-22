@@ -3,14 +3,44 @@ require "coolxbrl/edinet/presentation/node"
 module CoolXBRL
   module EDINET
     class Presentation
+      CONSOLIDATED_BALANCE_SHEET                     = "rol_ConsolidatedBalanceSheet"
+      CONSOLIDATED_STATEMENT_OF_INCOME               = "rol_ConsolidatedStatementOfIncome"
+      CONSOLIDATED_STATEMENT_OF_CHANGES_IN_EQUITY    = "rol_ConsolidatedStatementOfChangesInEquity"
+      CONSOLIDATED_STATEMENT_OF_COMPREHENSIVE_INCOME = "rol_ConsolidatedStatementOfComprehensiveIncome"
+      CONSOLIDATED_STATEMENT_OF_CASH_FLOWS_INDIRECT  = "rol_ConsolidatedStatementOfCashFlows-indirect"
+      BALANCE_SHEET                                  = "rol_BalanceSheet"
+      STATEMENT_OF_INCOME                            = "rol_StatementOfIncome"
+      STATEMENT_OF_CHANGES_IN_EQUITY                 = "rol_StatementOfChangesInEquity"
+
       class << self
-        def parse(presentation_doc)
-          #presentation_doc = CoolXBRL::EDINET.get_file(dir, "*_pre.xml")
-          get_financial_accounts(presentation_doc)
+        def parse(doc)
+          #doc = CoolXBRL::EDINET.get_file(dir, "*_pre.xml")
+          get_financial_accounts(doc)
         end
 
-        def get_financial_accounts(presentation_doc)
-          tables = presentation_doc.xpath("//link:presentationLink[contains(./@xlink:role, 'http://disclosure.edinet-fsa.go.jp/role/jppfs/')]")
+        def parse_table(doc, table, consolidated)
+          get_financial_accounts(doc, select_table(table, consolidated))
+        end
+
+        def select_table(table, consolidated)
+          case "table"
+          when :bs
+            consolidated ? CONSOLIDATED_BALANCE_SHEET : BALANCE_SHEET
+          when :pl
+            consolidated ? CONSOLIDATED_STATEMENT_OF_INCOME : STATEMENT_OF_INCOME
+          when :cs
+            consolidated ? CONSOLIDATED_STATEMENT_OF_CHANGES_IN_EQUITY : STATEMENT_OF_CHANGES_IN_EQUITY
+          when :ci
+            consolidated ? CONSOLIDATED_STATEMENT_OF_COMPREHENSIVE_INCOME : raise "SelectTableError"
+          when :cf
+            consolidated ? CONSOLIDATED_STATEMENT_OF_CASH_FLOWS_INDIRECT : raise "SelectTableError"
+          else
+            raise "SelectTableError"
+          end
+        end
+
+        def get_financial_accounts(doc, table="")
+          tables = doc.xpath("//link:presentationLink[contains(./@xlink:role, 'http://disclosure.edinet-fsa.go.jp/role/jppfs/#{table}')]")
 
           to_hash tables
         end

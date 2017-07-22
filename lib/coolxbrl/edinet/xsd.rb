@@ -11,9 +11,9 @@ module XSD
 
   def set_language_pattern(language)
     case language
-    when "ja"
+    when :ja
       "_lab.xml"
-    when "en"
+    when :en
       "_lab-en"
     else
       raise "LanguageError"
