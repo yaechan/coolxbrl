@@ -23,7 +23,7 @@ module CoolXBRL
         end
 
         def select_table(table, consolidated)
-          case "table"
+          case table
           when :bs
             consolidated ? CONSOLIDATED_BALANCE_SHEET : BALANCE_SHEET
           when :pl
