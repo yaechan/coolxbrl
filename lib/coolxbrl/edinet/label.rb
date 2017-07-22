@@ -1,20 +1,30 @@
 module CoolXBRL
   module EDINET
     class Label
-      STANDARD_LABEL = "http://www.xbrl.org/2003/role/label"
-      VERBOSE_LABEL  = "http://www.xbrl.org/2003/role/verboseLabel"
+      DEFAULT_LANGUAGE = "ja"
+      STANDARD_LABEL   = "http://www.xbrl.org/2003/role/label"
+      VERBOSE_LABEL    = "http://www.xbrl.org/2003/role/verboseLabel"
+
       class << self
-        def get_label(locator, preferred_label=nil, english_flag=false)
+        def language=(language)
+          @@language = language
+        end
+
+        def language
+          @@language
+        end
+
+        def get_label(locator, preferred_label=nil, language="ja")
           #name, doc, href, role = create_params(locator, preferred_label, english_flag)
-          search_label(*create_params(locator, preferred_label, english_flag))
+          search_label(*create_params(locator, preferred_label, language))
         end
 
-        def get_context_label(context, english_flag=false)
-          search_context_label(*create_context_params(context, english_flag))
+        def get_context_label(context, language="ja")
+          search_context_label(*create_context_params(context, language))
         end
 
-        def create_params(locator, preferred_label, english_flag)
-          label_files = english_flag ? CoolXBRL::EDINET.label_en : CoolXBRL::EDINET.label
+        def create_params(locator, preferred_label, language)
+          label_files = language == "ja" ? CoolXBRL::EDINET.label : CoolXBRL::EDINET.label_en
           role        = preferred_label || STANDARD_LABEL
 
           if /http\:\/\// =~ locator
@@ -24,8 +34,8 @@ module CoolXBRL
           end
         end
 
-        def create_context_params(context, english_flag)
-          label_files = english_flag ? CoolXBRL::EDINET.label_en : CoolXBRL::EDINET.label
+        def create_context_params(context, language)
+          label_files = language == "ja" ? CoolXBRL::EDINET.label : CoolXBRL::EDINET.label_en
           role        = STANDARD_LABEL
 
           if /jp(crp|pfs)\d{6}\-(asr|ssr|q[1-5]r)\_[EG]\d{5}\-\d{3}/ =~ context

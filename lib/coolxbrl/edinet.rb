@@ -15,9 +15,16 @@ module CoolXBRL
     #extend Label
 
     class << self
-      def parse(dir)
+      def parse(dir, language=Label::DEFAULT_LANGUAGE)
+        puts language
+        exit 0
         get_taxonomy dir
         Presentation.parse presentation
+      end
+
+      def parse_table(dir, table, consolidated)
+        get_taxonomy dir
+        Presentation.parse_table(presentation, table, consolidated)
       end
 
 #      def get_file(dir, pattern)
