@@ -19,7 +19,7 @@ module CoolXBRL
         end
 
         def parse_table(doc, consolidated, table)
-          get_financial_accounts(doc, select_table(table, consolidated))
+          get_financial_accounts(doc, select_table(consolidated, table))
         end
 
         def select_table(consolidated, table)
