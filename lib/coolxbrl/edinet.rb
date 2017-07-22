@@ -20,9 +20,9 @@ module CoolXBRL
         Presentation.parse presentation
       end
 
-      def parse_table(dir, table, consolidated, language=Label::DEFAULT_LANGUAGE)
+      def parse_table(dir, consolidated, table, language=Label::DEFAULT_LANGUAGE)
         get_taxonomy dir, language
-        Presentation.parse_table(presentation, table, consolidated)
+        Presentation.parse_table(presentation, consolidated, table)
       end
 
 #      def get_file(dir, pattern)

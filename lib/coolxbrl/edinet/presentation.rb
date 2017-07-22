@@ -18,11 +18,11 @@ module CoolXBRL
           get_financial_accounts(doc)
         end
 
-        def parse_table(doc, table, consolidated)
+        def parse_table(doc, consolidated, table)
           get_financial_accounts(doc, select_table(table, consolidated))
         end
 
-        def select_table(table, consolidated)
+        def select_table(consolidated, table)
           case table
           when :bs
             consolidated ? CONSOLIDATED_BALANCE_SHEET : BALANCE_SHEET
