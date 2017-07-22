@@ -37,23 +37,23 @@ module CoolXBRL
 
         def search_context_label(name, doc, context, role)
           #確実な検索。時間が掛かる
-          #doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
-          #  label = doc.at_xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").to_s
-          #  break label unless label.empty?
-          #end
+          doc.xpath("//link:labelArc[@xlink:from='#{context}']/@xlink:to").each do |to|
+            label = doc.at_xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").to_s
+            break label unless label.empty?
+          end
           #不確実かもしれない検索。多少時間が速くなる
-          doc.xpath("//link:label[contains(./@xlink:label, '#{context}') and @xlink:role='#{role}']/text()").to_s
+          #doc.xpath("//link:label[contains(./@xlink:label, '#{context}') and @xlink:role='#{role}']/text()").to_s
         end
 
         def search_label(name, doc, href, role)
           locator_label = doc.at_xpath("//link:loc[@xlink:href='#{href}']/@xlink:label").to_s
           #確実な検索。時間が掛かる
-          #doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
-          #  label = doc.at_xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").to_s
-          #  break label unless label.empty?
-          #end
+          doc.xpath("//link:labelArc[@xlink:from='#{locator_label}']/@xlink:to").each do |to|
+            label = doc.at_xpath("//link:label[@xlink:label='#{to.to_s}' and @xlink:role='#{role}']/text()").to_s
+            break label unless label.empty?
+          end
           #不確実かもしれない検索。多少時間が速くなる
-          doc.xpath("//link:label[contains(./@xlink:label, '#{locator_label}') and @xlink:role='#{role}']/text()").to_s
+          #doc.xpath("//link:label[contains(./@xlink:label, '#{locator_label}') and @xlink:role='#{role}']/text()").to_s
         end
       end
     end
