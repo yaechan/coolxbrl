@@ -31,9 +31,9 @@ module CoolXBRL
           when :cs
             consolidated ? CONSOLIDATED_STATEMENT_OF_CHANGES_IN_EQUITY : STATEMENT_OF_CHANGES_IN_EQUITY
           when :ci
-            consolidated ? CONSOLIDATED_STATEMENT_OF_COMPREHENSIVE_INCOME : raise "SelectTableError"
+            consolidated ? CONSOLIDATED_STATEMENT_OF_COMPREHENSIVE_INCOME : raise# "SelectTableError"
           when :cf
-            consolidated ? CONSOLIDATED_STATEMENT_OF_CASH_FLOWS_INDIRECT : raise "SelectTableError"
+            consolidated ? CONSOLIDATED_STATEMENT_OF_CASH_FLOWS_INDIRECT : raise# "SelectTableError"
           else
             raise "SelectTableError"
           end
