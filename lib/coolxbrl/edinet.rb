@@ -16,14 +16,12 @@ module CoolXBRL
 
     class << self
       def parse(dir, language=Label::DEFAULT_LANGUAGE)
-        puts language
-        exit 0
-        get_taxonomy dir
+        get_taxonomy dir, language
         Presentation.parse presentation
       end
 
-      def parse_table(dir, table, consolidated)
-        get_taxonomy dir
+      def parse_table(dir, table, consolidated, language=Label::DEFAULT_LANGUAGE)
+        get_taxonomy dir, language
         Presentation.parse_table(presentation, table, consolidated)
       end
 

@@ -1,24 +1,35 @@
 require "open-uri"
 
 module XSD
-  attr_accessor :xsd, :presentation, :label, :label_en, :xbrl
+  attr_accessor :xsd, :presentation, :label, :xbrl
 
-  def get_taxonomy(dir)
+  def get_taxonomy(dir, language)
+    @language_pattern = set_language_pattern(language)
     get_presenters_files(dir)
     get_edinet_files(@xsd)
   end
 
+  def set_language_pattern(language)
+    case language
+    when "ja"
+      "_lab.xml"
+    when "en"
+      "_lab-en"
+    else
+      raise "LanguageError"
+    end
+  end
+
   def get_presenters_files(dir)
-    @xsd          = get_presenters_file(dir, "*.xsd")
-    @presentation = get_presenters_file(dir, "*_pre.xml")
-    @label        = get_presenters_file(dir, "*_lab.xml", true)
-    @label_en     = get_presenters_file(dir, "*_lab-en.xml", true)
-    @xbrl         = get_presenters_file(dir, "*.xbrl")
+    @xsd          = get_presenters_file(dir, ".xsd")
+    @presentation = get_presenters_file(dir, "_pre.xml")
+    @xbrl         = get_presenters_file(dir, ".xbrl")
+    @label = get_presenters_file(dir, @language_pattern, true)
   end
 
   def get_presenters_file(dir, pattern, hash_flag=false)
     Dir.chdir(dir)
-    files = Dir.glob("XBRL/PublicDoc/**/#{pattern}")
+    files = Dir.glob("XBRL/PublicDoc/**/*#{pattern}")
     if hash_flag
       result = {}
       files.each do |file_name|
@@ -33,10 +44,7 @@ module XSD
   end
 
   def get_edinet_files(xsd)
-    #@label.store(*get_edinet_file(xsd, "_lab.xml"))
-    #@label_en.store(*get_edinet_file(xsd, "_lab-en.xml"))
-    @label[:edinet] = get_edinet_file(xsd, "_lab.xml")
-    @label_en[:edinet] = get_edinet_file(xsd, "_lab-en.xml")
+    @label[:edinet] = get_edinet_file(xsd, @language_pattern)
   end
 
   def get_edinet_file(xsd, pattern)
