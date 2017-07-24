@@ -17,6 +17,14 @@ module CoolXBRL
                               data.at_xpath("@decimals").to_s)
           end
         end
+
+        def create_period(contextRef)
+          doc = CoolXBRL::EDINET.xbrl
+          doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/.").each do |period|
+            pp period
+            exit 0
+          end
+        end
       end
     end
   end
