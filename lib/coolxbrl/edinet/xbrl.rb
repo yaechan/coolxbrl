@@ -23,8 +23,8 @@ module CoolXBRL
           puts doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*/text()").methods
           puts doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*/text()").to_a
           puts doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*/text()").class
+          exit 0
         end
-        exit 0
       end
     end
   end
