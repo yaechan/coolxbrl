@@ -21,7 +21,7 @@ module CoolXBRL
         def create_period(contextRef)
           doc = CoolXBRL::EDINET.xbrl
           doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*/text()").map do |text|
-            text.gsub(/\-/, "/")
+            text.to_s.gsub(/\-/, "/")
           end.to_a.join("-")
         end
       end
