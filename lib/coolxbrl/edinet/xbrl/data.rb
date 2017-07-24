@@ -20,8 +20,7 @@ module CoolXBRL
         end
 
         def create_period(context_ref)
-          puts CoolXBRL::EDINET::XBRL.create_period(context_ref)
-          exit 0
+          CoolXBRL::EDINET::XBRL.create_period(context_ref)
         end
       end
     end
