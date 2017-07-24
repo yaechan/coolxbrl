@@ -20,11 +20,11 @@ module CoolXBRL
 
         def create_period(contextRef)
           doc = CoolXBRL::EDINET.xbrl
-          doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*").each do |period|
-            pp period
-          end
-          exit 0
+          puts doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*/text()").methods
+          puts doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*/text()").to_a
+          puts doc.xpath("//xbrli:context[@id='#{contextRef}']/xbrli:period/*/text()").class
         end
+        exit 0
       end
     end
   end

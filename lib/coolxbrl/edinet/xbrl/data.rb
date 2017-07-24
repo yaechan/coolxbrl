@@ -2,7 +2,7 @@ module CoolXBRL
   module EDINET
     class XBRL
       class Data
-        attr_accessor :value, :context_ref, :unit_ref, :decimals, :context_label
+        attr_accessor :value, :context_ref, :unit_ref, :decimals, :context_label, :period
 
         def initialize(value, context_ref, unit_ref, decimals)
           @value         = value
