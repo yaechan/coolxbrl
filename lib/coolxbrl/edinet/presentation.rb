@@ -62,7 +62,7 @@ module CoolXBRL
             end
 
             #hash[table.xpath("@xlink:role").to_s] = Node.top_node
-            node_set[table.xpath("@xlink:role").to_s] = Node.top_node
+            node_set = Node.top_node
           end
           #hash
           node_set
