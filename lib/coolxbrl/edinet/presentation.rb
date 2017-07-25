@@ -1,4 +1,5 @@
 require "coolxbrl/edinet/presentation/node"
+require "coolxbrl/edinet/presentation/node_set"
 
 module CoolXBRL
   module EDINET
