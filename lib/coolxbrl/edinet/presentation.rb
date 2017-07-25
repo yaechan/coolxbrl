@@ -43,10 +43,10 @@ module CoolXBRL
         def get_financial_accounts(doc, table="")
           tables = doc.xpath("//link:presentationLink[contains(./@xlink:role, 'http://disclosure.edinet-fsa.go.jp/role/jppfs/#{table}')]")
 
-          to_hash tables
+          create_node_set tables
         end
 
-        def to_hash(tables)
+        def create_node_set(tables)
           #hash = {}
           node_set = NodeSet.new
           tables.each do |table|
