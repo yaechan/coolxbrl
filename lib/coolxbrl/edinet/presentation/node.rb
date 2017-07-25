@@ -2,7 +2,7 @@ module CoolXBRL
   module EDINET
     class Presentation
       class Node
-        @@nodes = []
+        @@nodes = CoolXBRL::EDINET::Presentation::NodeSet.new
         #@@child_nodes = []
 
         attr_accessor :name, :locator, :children, :order, :preferred_label, :label, :data

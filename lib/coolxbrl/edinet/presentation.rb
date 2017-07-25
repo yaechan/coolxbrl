@@ -46,7 +46,8 @@ module CoolXBRL
         end
 
         def to_hash(tables)
-          hash = {}
+          #hash = {}
+          node_set = NodeSet.new
           tables.each do |table|
             Node.clear_class_variables
             table.xpath("link:presentationArc").each do |arc|
@@ -59,9 +60,11 @@ module CoolXBRL
                        preferred_label: arc.at_xpath("@preferredLabel").to_s)
             end
 
-            hash[table.xpath("@xlink:role").to_s] = Node.top_node
+            #hash[table.xpath("@xlink:role").to_s] = Node.top_node
+            node_set[table.xpath("@xlink:role").to_s] = Node.top_node
           end
-          hash
+          #hash
+          node_set
         end
       end
     end
