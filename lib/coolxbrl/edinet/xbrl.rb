@@ -1,4 +1,5 @@
 require "coolxbrl/edinet/xbrl/data"
+require "coolxbrl/edinet/xbrl/data_set"
 
 module CoolXBRL
   module EDINET
@@ -10,7 +11,7 @@ module CoolXBRL
 
         def get_data(name)
           doc = CoolXBRL::EDINET.xbrl
-          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3})_/, ":")}").inject([]) do |stack, data|
+          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3})_/, ":")}").inject(DataSet.new) do |stack, data|
             stack << Data.new(data.at_xpath("text()").to_s,
                               data.at_xpath("@contextRef").to_s,
                               data.at_xpath("@unitRef").to_s,
