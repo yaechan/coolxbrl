@@ -8,6 +8,7 @@ module CoolXBRL
           self.inject({}) do |stack, data|
             stack[data.context_ref] = { :label => data.context_label, :data => [] } unless stack.has_key?(data.context_ref)
             stack[data.context_ref][:data] << { :period => data.period, :value => data.value }
+            stack
           end
 
           #self.map do |data|
