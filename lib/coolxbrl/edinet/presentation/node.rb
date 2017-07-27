@@ -25,6 +25,7 @@ module CoolXBRL
         end
 
         def data?
+          pp self; exit 0 if data.nil?
           !self.data.empty?
         end
 
