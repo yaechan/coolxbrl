@@ -33,18 +33,34 @@ module CoolXBRL
         end
 
         def to_csv(indent_flag=true)
-          #puts self.label
+          nodes = [self]
           CSV.generate do |csv|
-            if self.data?
-              self.data.to_csv do |data_row|
-                csv << data_row.unshift(self.label)
+            until nodes.empty?
+              node = nodes.shift
+              if node.data?
+                node.data.to_csv do |data_row|
+                  csv << data_row.unshift(node.label)
+                end
+              else
+                csv << [node.label, nil, nil]
               end
-            else
-              csv << [self.label, nil, nil]
-            end
 
-            csv << self.children.to_csv(indent_flag).to_a if self.children?
+              nodes.unshift(node.children) if node.children?
+            end
           end
+
+          #puts self.label
+          #CSV.generate do |csv|
+          #  if self.data?
+          #    self.data.to_csv do |data_row|
+          #      csv << data_row.unshift(self.label)
+          #    end
+          #  else
+          #    csv << [self.label, nil, nil]
+          #  end
+          #
+          #  self.children.to_csv(indent_flag) if self.children?
+          #end
         end
 
         class << self
