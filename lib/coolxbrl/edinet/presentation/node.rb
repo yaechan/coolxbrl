@@ -45,7 +45,7 @@ module CoolXBRL
                 csv << [node.label, nil, nil]
               end
 
-              nodes.unshift(node.children) if node.children?
+              nodes.unshift(*node.children) if node.children?
             end
           end
 
