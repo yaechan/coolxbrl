@@ -38,9 +38,16 @@ module CoolXBRL
             until nodes.empty?
               node = nodes.shift
               if node.data?
-                node.data.to_csv do |data_row|
-                  csv << data_row.unshift(node.label)
+                node.data.to_hash.each do |context_ref, context_data|
+                  label_data = [node.label, context_data[:label]]
+                  csv << context_data[:data].inject(label_data) do |stack, period_data|
+                    stack << "#{period_data[:value]}(#{period_data[:period]})"
+                  end
                 end
+
+                #node.data.to_csv do |data_row|
+                #  csv << data_row.unshift(node.label)
+                #end
               else
                 csv << [node.label, nil, nil]
               end
