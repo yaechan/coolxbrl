@@ -33,7 +33,8 @@ module CoolXBRL
         end
 
         def to_csv(indent_flag=true)
-          result = CSV.generate do |csv|
+          puts self.label
+          CSV.generate do |csv|
             if self.data?
               self.data.to_csv do |data_row|
                 csv << data_row.unshift(self.label)
@@ -44,7 +45,6 @@ module CoolXBRL
 
             self.children.to_csv(indent_flag) if self.children?
           end
-          result
         end
 
         class << self
