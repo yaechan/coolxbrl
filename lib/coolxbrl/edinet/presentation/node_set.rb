@@ -5,7 +5,7 @@ module CoolXBRL
         include Set
 
         def odd
-          select {|f| f.class == "Node" }
+          select {|f| f.class != "Node" }
         end
       end
     end

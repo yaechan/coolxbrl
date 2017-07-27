@@ -8,6 +8,7 @@ result = CoolXBRL::EDINET.parse(file_path)
 #pp CoolXBRL::EDINET.parse_table(file_path, true, :cf, :ja)
 
 puts result.class
+puts result.odd
 
 #CoolXBRL::EDINET.parse(file_path).each do |role, node|
 #  puts node.label
