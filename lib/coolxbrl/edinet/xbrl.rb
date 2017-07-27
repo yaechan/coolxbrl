@@ -16,7 +16,7 @@ module CoolXBRL
                               data.at_xpath("@contextRef").to_s,
                               data.at_xpath("@unitRef").to_s,
                               data.at_xpath("@decimals").to_s)
-          end
+          end.uniq
         end
 
         def create_period(contextRef)
