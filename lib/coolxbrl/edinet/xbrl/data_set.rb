@@ -16,6 +16,10 @@ module CoolXBRL
           #  block_given? ? yield(data_row) : data_row
           #end
         end
+
+        def has_context_ref?(context_ref)
+          self.find {|data| data.context_ref == context_ref }
+        end
       end
     end
   end
