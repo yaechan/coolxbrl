@@ -14,7 +14,7 @@ module CoolXBRL
           doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3}|jp.{3}\d{6}\-.{3}\_[EG]\d{5}\-\d{3})_/, ":")}").each_with_object(DataSet.new) do |data, stack|
             context_ref = data.at_xpath("@contextRef").to_s
             stack << Data.new(data.at_xpath("text()").to_s,
-                              context_ref,#data.at_xpath("@contextRef").to_s,
+                              context_ref,
                               data.at_xpath("@unitRef").to_s,
                               data.at_xpath("@decimals").to_s) unless stack.has_context_ref?(context_ref)
           end

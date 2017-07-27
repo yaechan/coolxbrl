@@ -10,11 +10,6 @@ module CoolXBRL
             stack[context_ref] = { :label => data.context_label, :data => [] } unless stack.has_key?(context_ref)
             stack[context_ref][:data] << { :period => data.period, :value => data.value }
           end
-
-          #self.map do |data|
-          #  data_row = data.to_csv
-          #  block_given? ? yield(data_row) : data_row
-          #end
         end
 
         def has_context_ref?(context_ref)

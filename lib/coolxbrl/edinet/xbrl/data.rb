@@ -22,10 +22,6 @@ module CoolXBRL
         def create_period(context_ref)
           CoolXBRL::EDINET::XBRL.create_period(context_ref)
         end
-
-        #def to_csv
-        #  return self.context_label, self.period, self.value
-        #end
       end
     end
   end

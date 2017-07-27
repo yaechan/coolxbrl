@@ -44,30 +44,13 @@ module CoolXBRL
                     stack << "#{period_data[:value]}(#{period_data[:period]})"
                   end
                 end
-
-                #node.data.to_csv do |data_row|
-                #  csv << data_row.unshift(node.label)
-                #end
               else
-                csv << [node.label, nil, nil]
+                csv << [node.label]
               end
 
               nodes.unshift(*node.children) if node.children?
             end
           end
-
-          #puts self.label
-          #CSV.generate do |csv|
-          #  if self.data?
-          #    self.data.to_csv do |data_row|
-          #      csv << data_row.unshift(self.label)
-          #    end
-          #  else
-          #    csv << [self.label, nil, nil]
-          #  end
-          #
-          #  self.children.to_csv(indent_flag) if self.children?
-          #end
         end
 
         class << self
@@ -75,7 +58,6 @@ module CoolXBRL
             @@nodes
           end
 
-          #TODO order属性が必ず入るなら（order=1）、orderの有無でtop_nodeの判断をしてもいいかも。
           def top_node
             #@@nodes - @@child_nodes
             node = @@nodes.find {|node| !node.instance_variable_defined?(:@order)}
