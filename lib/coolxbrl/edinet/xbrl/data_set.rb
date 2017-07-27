@@ -5,10 +5,10 @@ module CoolXBRL
         include Set
 
         def to_hash
-          self.inject({}) do |stack, data|
-            stack[data.context_ref] = { :label => data.context_label, :data => [] } unless stack.has_key?(data.context_ref)
-            stack[data.context_ref][:data] << { :period => data.period, :value => data.value }
-            stack
+          self.each_with_object({}) do |data, stack|
+            context_ref = data.context_ref.scan(/(?<=Instant\_|Duration\_).+Member$/)
+            stack[context_ref] = { :label => data.context_label, :data => [] } unless stack.has_key?(context_ref)
+            stack[context_ref][:data] << { :period => data.period, :value => data.value }
           end
 
           #self.map do |data|
