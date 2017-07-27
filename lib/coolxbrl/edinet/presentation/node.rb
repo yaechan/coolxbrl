@@ -17,7 +17,7 @@ module CoolXBRL
           else
             @name     = parent[:name]
             @locator  = parent[:locator]
-            @children = child ? [create_children(child, order, preferred_label)] : []
+            @children = child ? NodeSet[create_children(child, order, preferred_label)] : NodeSet.new
 
             @@nodes << self
             #@@child_nodes << @children.first if child_name
@@ -42,7 +42,7 @@ module CoolXBRL
           end
 
           def clear_class_variables
-            @@nodes = []
+            @@nodes = NodeSet.new
             #@@child_nodes = []
           end
         end
