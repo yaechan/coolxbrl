@@ -24,7 +24,7 @@ module CoolXBRL
         end
 
         def to_csv
-          self.context_label, self.value
+          return self.context_label, self.value
         end
       end
     end
