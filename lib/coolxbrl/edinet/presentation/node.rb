@@ -43,7 +43,7 @@ module CoolXBRL
               csv << [self.label, nil, nil]
             end
 
-            csv << self.children.to_csv(indent_flag) if self.children?
+            csv << self.children.to_csv(indent_flag).to_a if self.children?
           end
         end
 
