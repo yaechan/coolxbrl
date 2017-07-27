@@ -1,8 +1,3 @@
-require "coolxbrl/edinet/balance_sheet"
-require "coolxbrl/edinet/profit_and_loss_statement"
-require "coolxbrl/edinet/statement_of_cash_flow"
-require "coolxbrl/edinet/statement_of_comprehensive_income"
-require "coolxbrl/edinet/statement_of_shareholders_equity"
 require "coolxbrl/edinet/document_information"
 require "coolxbrl/edinet/presentation"
 require "coolxbrl/edinet/xbrl"

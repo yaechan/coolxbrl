@@ -1,5 +1,5 @@
-require "coolxbrl/edinet/xbrl/data"
 require "coolxbrl/edinet/xbrl/data_set"
+require "coolxbrl/edinet/xbrl/data"
 
 module CoolXBRL
   module EDINET
