@@ -39,10 +39,10 @@ module CoolXBRL
                 csv << data_row.unshift(self.label)
               end
             else
-              csv = [self.label, nil, nil]
+              csv << [self.label, nil, nil]
             end
 
-            self.children.to_csv(indent_flag) if self.children?
+            #self.children.to_csv(indent_flag) if self.children?
           end
           result
         end
