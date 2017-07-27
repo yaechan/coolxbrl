@@ -11,7 +11,7 @@ module CoolXBRL
 
         def get_data(name)
           doc = CoolXBRL::EDINET.xbrl
-          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3})_/, ":")}").inject(DataSet.new) do |stack, data|
+          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3}|jp.{3}\d{6}\-.{3}\_[EG]\d{5}\-\d{3})_/, ":")}").inject(DataSet.new) do |stack, data|
             stack << Data.new(data.at_xpath("text()").to_s,
                               data.at_xpath("@contextRef").to_s,
                               data.at_xpath("@unitRef").to_s,
