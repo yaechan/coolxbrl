@@ -1,4 +1,5 @@
 require "nokogiri"
+require "csv"
 require "pp"
 
 require "coolxbrl/version"

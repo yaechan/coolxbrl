@@ -48,9 +48,7 @@ module CoolXBRL
 
         def create_node_set(tables)
           #hash = {}
-          #node_set = NodeSet.new
           tables.inject(NodeSet.new) do |node_set, table|
-          #tables.each do |table|
             Node.clear_class_variables
             table.xpath("link:presentationArc").each do |arc|
               parent_name = arc.at_xpath("@xlink:from").to_s
@@ -66,7 +64,6 @@ module CoolXBRL
             node_set << Node.top_node
           end
           #hash
-          #node_set
         end
       end
     end

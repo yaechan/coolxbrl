@@ -24,6 +24,28 @@ module CoolXBRL
           end
         end
 
+        def data?
+          !self.data.empty?
+        end
+
+        def children?
+          !self.children.empty?
+        end
+
+        def to_csv(indent_flag=true)
+          CSV.generate do |csv|
+            if self.data?
+              self.data.to_csv do |data_row|
+                csv << data_row.unshift(self.label)
+              end
+            else
+              csv = [self.label, nil, nil]
+            end
+
+            self.children.to_csv(indent_flag) if self.children?
+          end
+        end
+
         class << self
           def nodes
             @@nodes
