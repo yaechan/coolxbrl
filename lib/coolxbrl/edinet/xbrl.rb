@@ -22,6 +22,10 @@ module CoolXBRL
           end
         end
 
+        def consolidated_or_nonconsolidated?(context_ref, role)
+          #Node#to_csvのL47-52とL57-58を移植する
+        end
+
         def period_start_or_end?(context_ref, preferred_label)
           return true unless preferred_label == "http://www.xbrl.org/2003/role/periodStartLabel" ||
                              preferred_label == "http://www.xbrl.org/2003/role/periodEndLabel"
