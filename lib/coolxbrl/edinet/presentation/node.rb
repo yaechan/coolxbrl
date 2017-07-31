@@ -32,9 +32,9 @@ module CoolXBRL
           !self.children.empty?
         end
 
-        def children_with_index
+        def children_with_index(index)
           self.children.sort_by{|child| child.order }
-                       .map{|child| [child, index + 1] }
+                       .map{|child| [child, index] }
         end
 
         def to_csv(indent_flag=true)
@@ -66,7 +66,7 @@ module CoolXBRL
                 csv << [indent + node.label]
               end
 
-              nodes.unshift(*node.children_with_index) if node.children?
+              nodes.unshift(*node.children_with_index(index + 1)) if node.children?
             end
           end
 
