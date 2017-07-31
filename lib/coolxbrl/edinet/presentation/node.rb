@@ -33,24 +33,44 @@ module CoolXBRL
         end
 
         def to_csv(indent_flag=true)
-          nodes = [self]
+          nodes = [[self, 0]]
           CSV.generate do |csv|
             until nodes.empty?
-              node = nodes.shift
+              node, index = nodes.shift
+              indent = index * " "
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
-                  label_data = [node.label, context_data[:label].join("|")]
+                  label_data = [indent + node.label, context_data[:label].join("|")]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
                     stack << "#{period_data[:value]}(#{period_data[:period]})"
                   end
                 end
               else
-                csv << [node.label]
+                csv << [indent + node.label]
               end
 
-              nodes.unshift(*node.children) if node.children?
+              nodes.unshift(*node.children.map{|child| [child, index + 1] }) if node.children?
             end
           end
+
+#          nodes = [self]
+#          CSV.generate do |csv|
+#            until nodes.empty?
+#              node = nodes.shift
+#              if node.data?
+#                node.data.to_hash.each do |context_ref, context_data|
+#                  label_data = [node.label, context_data[:label].join("|")]
+#                  csv << context_data[:data].inject(label_data) do |stack, period_data|
+#                    stack << "#{period_data[:value]}(#{period_data[:period]})"
+#                  end
+#                end
+#              else
+#                csv << [node.label]
+#              end
+#
+#              nodes.unshift(*node.children) if node.children?
+#            end
+#          end
         end
 
         class << self
