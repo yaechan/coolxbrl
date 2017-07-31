@@ -33,7 +33,7 @@ module CoolXBRL
         end
 
         def children_with_index(index)
-          self.children.sort_by{|child| child.order }
+          self.children.sort_by{|child| child.order.to_i }
                        .map{|child| [child, index] }
         end
 
