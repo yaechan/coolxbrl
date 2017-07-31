@@ -14,7 +14,7 @@ module XSD
     when :ja
       "_lab.xml"
     when :en
-      "_lab-en"
+      "_lab-en.xml"
     else
       raise "LanguageError"
     end
