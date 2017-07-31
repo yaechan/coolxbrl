@@ -33,7 +33,11 @@ module CoolXBRL
           comparative_period_end_date    = doc.at_xpath("//jpdei_cor:ComparativePeriodEndDateDEI")
 
           period_label = create_period(context_ref, "-")
+          puts preferred_label
           puts period_label
+          puts current_fiscal_term_end_date
+          puts comparative_period_end_date
+          puts "-"*30
           return (preferred_label == "http://www.xbrl.org/2003/role/periodStartLabel" &&
                   (Date.parse(period_label) == (Date.parse(comparative_period_end_date) + 1).prev_year - 1 ||
                    Date.parse(period_label) == (Date.parse(current_fiscal_term_end_date) + 1).prev_year - 1)) ||
