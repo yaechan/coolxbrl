@@ -49,10 +49,9 @@ module CoolXBRL
 
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
-                  context_data_label = context_data[:label].join("|")
-                  next if (consolidated_flag && /NonConsolidatedMember/ =~ context_data_label) ||
-                          (!consolidated_flag && /NonConsolidatedMember/ !~ context_data_label)
-                  label_data = [indent + node.label, context_data_label]
+                  next if (consolidated_flag && /NonConsolidatedMember/ =~ context_ref) ||
+                          (!consolidated_flag && /NonConsolidatedMember/ !~ context_ref)
+                  label_data = [indent + node.label, context_data[:label].join("|")]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
                     value = period_data[:value]
                     stack.push(value.empty? ? "-" : value, period_data[:period])
