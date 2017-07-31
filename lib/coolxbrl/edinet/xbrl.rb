@@ -29,8 +29,8 @@ module CoolXBRL
 
           doc = CoolXBRL::EDINET.xbrl
           current_fiscal_term_end_date   = doc.at_xpath("//jpdei_cor:EndDateOfQuarterlyOrSemiAnnualPeriodOfNextFiscalYearDEI[@xsi:nil!='true']")
-          current_fiscal_term_end_date ||= doc.at_xpath("//jpdei_cor:CurrentFiscalYearEndDateDEI")
-          comparative_period_end_date    = doc.at_xpath("//jpdei_cor:ComparativePeriodEndDateDEI")
+          current_fiscal_term_end_date ||= doc.at_xpath("//jpdei_cor:CurrentFiscalYearEndDateDEI/text()").to_s
+          comparative_period_end_date    = doc.at_xpath("//jpdei_cor:ComparativePeriodEndDateDEI/text()").to_s
 
           period_label = create_period(context_ref, "-")
           puts preferred_label
