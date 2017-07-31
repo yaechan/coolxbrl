@@ -42,7 +42,8 @@ module CoolXBRL
                 node.data.to_hash.each do |context_ref, context_data|
                   label_data = [indent + node.label, context_data[:label].join("|")]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
-                    stack << "#{period_data[:value]}(#{period_data[:period]})"
+                    value = period_data[:value]
+                    stack << "#{value.empty? ? '-' : value}(#{period_data[:period]})"
                   end
                 end
               else
