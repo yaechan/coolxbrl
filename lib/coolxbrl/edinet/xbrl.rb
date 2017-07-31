@@ -15,7 +15,6 @@ module CoolXBRL
           puts name
           doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3}|jp.{3}\d{6}\-.{3}\_[EG]\d{5}\-\d{3})_|\_\d+$/, "_" => ":")}")
              .each_with_object(DataSet.new) do |data, stack|
-            puts "a"
             context_ref = data.at_xpath("@contextRef").to_s
             stack << Data.new(data.at_xpath("text()").to_s,
                               context_ref,
@@ -34,6 +33,7 @@ module CoolXBRL
           comparative_period_end_date    = doc.at_xpath("//jpdei_cor:ComparativePeriodEndDateDEI")
 
           period_label = create_period(context_ref, "-")
+          puts period_label
           return (preferred_label == "http://www.xbrl.org/2003/role/periodStartLabel" &&
                   (Date.parse(period_label) == (Date.parse(comparative_period_end_date) + 1).prev_year - 1 ||
                    Date.parse(period_label) == (Date.parse(current_fiscal_term_end_date) + 1).prev_year - 1)) ||
