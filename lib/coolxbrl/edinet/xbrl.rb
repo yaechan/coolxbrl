@@ -33,7 +33,7 @@ module CoolXBRL
           current_fiscal_term_end_date ||= doc.at_xpath("//jpdei_cor:CurrentFiscalYearEndDateDEI")
           comparative_period_end_date    = doc.at_xpath("//jpdei_cor:ComparativePeriodEndDateDEI")
 
-          period_label = create_period(context_ref)
+          period_label = create_period(context_ref, "-")
           return (preferred_label == "http://www.xbrl.org/2003/role/periodStartLabel" &&
                   (Date.parse(period_label) == (Date.parse(comparative_period_end_date) + 1).prev_year - 1 ||
                    Date.parse(period_label) == (Date.parse(current_fiscal_term_end_date) + 1).prev_year - 1)) ||
@@ -50,10 +50,10 @@ module CoolXBRL
         end
 #jpdei_cor:ComparativePeriodEndDateDEI#2016-03-31#比較最終日
 #jpdei_cor:CurrentFiscalYearEndDateDEI#2017-03-31#今季最終日
-        def create_period(context_ref)
+        def create_period(context_ref, date_sep="/")
           doc = CoolXBRL::EDINET.xbrl
           doc.xpath("//xbrli:context[@id='#{context_ref}']/xbrli:period/*/text()").map do |text|
-            text.to_s.gsub(/\-/, "/")
+            text.to_s.gsub(/\-/, date_sep)
           end.to_a.join("-")
         end
       end
