@@ -12,7 +12,7 @@ module CoolXBRL
 
         def get_data(name, preferred_label)
           doc = CoolXBRL::EDINET.xbrl
-          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3}|jp.{3}\d{6}\-.{3}\_[EG]\d{5}\-\d{3})_/, ":")}").each_with_object(DataSet.new) do |data, stack|
+          doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3}|jp.{3}\d{6}\-.{3}\_[EG]\d{5}\-\d{3})_|\_\d+$/, "_" => ":")}").each_with_object(DataSet.new) do |data, stack|
             context_ref = data.at_xpath("@contextRef").to_s
             stack << Data.new(data.at_xpath("text()").to_s,
                               context_ref,
