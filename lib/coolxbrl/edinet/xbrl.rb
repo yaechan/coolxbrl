@@ -26,7 +26,10 @@ module CoolXBRL
         end
 
         def consolidated_or_nonconsolidated?(context_ref, consolidated_flag)
-          (/\_NonConsolidatedMember/ =~ context_ref).nil? == consolidated_flag
+          #(/\_NonConsolidatedMember/ =~ context_ref).nil? == consolidated_flag
+
+          (/\_NonConsolidatedMember/ =~ context_ref).nil? == consolidated_flag.include?("ConsolidatedMember") &&
+          consolidated_flag.include?(context_ref.scan(/(?<=Instant\_|Duration\_).+Member$/)[0])
         end
 
         def period_start_or_end?(context_ref, preferred_label)

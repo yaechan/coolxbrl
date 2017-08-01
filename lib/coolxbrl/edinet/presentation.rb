@@ -49,9 +49,9 @@ module CoolXBRL
         def create_node_set(tables)
           #hash = {}
           tables.inject(NodeSet.new) do |node_set, table|
-            consolidated_flag = consolidated?(table)
+            #consolidated_flag = consolidated?(table)
             axis = get_axis(table)
-exit 0
+
             Node.clear_class_variables
             table.xpath("link:presentationArc").each do |arc|
               parent_name = arc.at_xpath("@xlink:from").to_s
@@ -61,7 +61,8 @@ exit 0
                        child:             { name: child_name, locator: table.xpath("link:loc[@xlink:label='#{child_name}']/@xlink:href").to_s },
                        order:             arc.at_xpath("@order").to_s,
                        preferred_label:   arc.at_xpath("@preferredLabel").to_s,
-                       consolidated_flag: consolidated_flag)
+#                       consolidated_flag: consolidated_flag)
+                       axis:              axis
             end
 
             #hash[table.xpath("@xlink:role").to_s] = Node.top_node
@@ -75,7 +76,7 @@ exit 0
         end
 
         def get_axis(table)
-          pp table.xpath("link:presentationArc[starts-with(./@xlink:to, 'jppfs_cor_') and contains(./@xlink:to, 'Member')]/@xlink:to").map {|to| to.to_s }
+          pp table.xpath("link:presentationArc[starts-with(./@xlink:to, 'jppfs_cor_') and contains(./@xlink:to, 'Member')]/@xlink:to").map {|to| to.to_s.gsub(/^jppfs\_cor\_/, "") }
         end
       end
     end
