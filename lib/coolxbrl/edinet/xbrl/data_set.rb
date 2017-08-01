@@ -10,7 +10,7 @@ module CoolXBRL
             #context_ref = data.context_ref
             stack[context_ref] = { :label => data.context_label, :data => [] } unless stack.has_key?(context_ref)
             stack[context_ref][:data] << { :period => data.period, :value => data.value }
-            stack[context_ref][:data].sort
+            stack[context_ref][:data].sort_by{|data| data[:period] }
           end
         end
 
@@ -18,9 +18,9 @@ module CoolXBRL
           self.find {|data| data.context_ref == context_ref }
         end
 
-        def sort
-          self.sort_by{|data| data[:period] }
-        end
+        #def sort
+        #  self.sort_by{|data| data[:period] }
+        #end
       end
     end
   end
