@@ -39,24 +39,14 @@ module CoolXBRL
 
         def to_csv(indent_flag=true)
           nodes = [[self, 0]]
-          #consolidated_flag = nil
           CSV.generate do |csv|
             until nodes.empty?
               node, index = nodes.shift
               indent = "  " * (indent_flag ? index : 0)
-              #if consolidated_flag.nil?
-              #  if node.name == "jppfs_cor_ConsolidatedMember"
-              #    consolidated_flag = true
-              #  elsif node.name == "jppfs_cor_NonConsolidatedMember"
-              #    consolidated_flag = false
-              #  end
-              #end
 
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
-                  #next if (consolidated_flag && /NonConsolidatedMember/ =~ context_ref) ||
-                  #        (!consolidated_flag && /NonConsolidatedMember/ !~ context_ref)
-                  label_data = [indent + node.label, context_data[:label].join("|")]
+                  label_data = [indent + node.label, context_data[:label].join("|") + "//" + context_ref]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
                     value = period_data[:value]
                     stack.push(value.empty? ? "-" : value, period_data[:period])
