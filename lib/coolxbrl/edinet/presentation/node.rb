@@ -53,7 +53,7 @@ module CoolXBRL
                   end
                 end
               else
-                csv << [indent + node.label + "//" + node.context_ref.to_s]
+                csv << [indent + node.label + "//" + node.name]
               end
 
               nodes.unshift(*node.children_with_index(index + 1)) if node.children?
