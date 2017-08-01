@@ -50,10 +50,10 @@ module CoolXBRL
                    period_label == comparative_period_end_date))
         end
 
-        def create_period(context_ref, date_sep="/")
+        def create_period(context_ref, separator="/")
           doc = CoolXBRL::EDINET.xbrl
           doc.xpath("//xbrli:context[@id='#{context_ref}']/xbrli:period/*/text()").map do |text|
-            text.to_s.gsub(/\-/, date_sep)
+            text.to_s.gsub(/\-/, separator)
           end.to_a.join("-")
         end
       end
