@@ -62,7 +62,7 @@ module CoolXBRL
                        order:             arc.at_xpath("@order").to_s,
                        preferred_label:   arc.at_xpath("@preferredLabel").to_s,
 #                       consolidated_flag: consolidated_flag)
-                       axis:              axis
+                       axis:              axis)
             end
 
             #hash[table.xpath("@xlink:role").to_s] = Node.top_node
@@ -76,7 +76,7 @@ module CoolXBRL
         end
 
         def get_axis(table)
-          pp table.xpath("link:presentationArc[starts-with(./@xlink:to, 'jppfs_cor_') and contains(./@xlink:to, 'Member')]/@xlink:to").map {|to| to.to_s.gsub(/^jppfs\_cor\_/, "") }
+          table.xpath("link:presentationArc[starts-with(./@xlink:to, 'jppfs_cor_') and contains(./@xlink:to, 'Member')]/@xlink:to").map {|to| to.to_s.gsub(/^jppfs\_cor\_/, "") }
         end
       end
     end
