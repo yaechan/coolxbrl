@@ -76,7 +76,6 @@ exit 0
 
         def get_axis(table)
           pp table.xpath("link:presentationArc[starts-with(./@xlink:to, 'jppfs_cor_') and contains(./@xlink:to, 'Member')]/@xlink:to").map {|to| to.to_s }
-          end
         end
       end
     end
