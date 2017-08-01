@@ -50,8 +50,8 @@ module CoolXBRL
           #hash = {}
           tables.inject(NodeSet.new) do |node_set, table|
             role = table.at_xpath("@xlink:role").to_s
-            consolidated_flag = table.at_xpath("//link:presentationArc[@xlink:from='jppfs_cor_ConsolidatedOrNonConsolidatedAxis' and @xlink:to='jppfs_cor_NonConsolidatedMember']").nil?
-puts table.at_xpath("//link:presentationArc[@xlink:from='jppfs_cor_ConsolidatedOrNonConsolidatedAxis' and @xlink:to='jppfs_cor_NonConsolidatedMember']")
+            consolidated_flag = table.at_xpath("link:presentationArc[@xlink:from='jppfs_cor_ConsolidatedOrNonConsolidatedAxis' and @xlink:to='jppfs_cor_NonConsolidatedMember']").nil?
+puts table.at_xpath("link:presentationArc[@xlink:from='jppfs_cor_ConsolidatedOrNonConsolidatedAxis' and @xlink:to='jppfs_cor_NonConsolidatedMember']")
 puts consolidated_flag
 exit 0
             Node.clear_class_variables
