@@ -62,7 +62,7 @@ module CoolXBRL
                        order:             arc.at_xpath("@order").to_s,
                        preferred_label:   arc.at_xpath("@preferredLabel").to_s,
 #                       consolidated_flag: consolidated_flag)
-                       axis:              axis)
+                       consolidated_flag:              axis)
             end
 
             #hash[table.xpath("@xlink:role").to_s] = Node.top_node
