@@ -49,15 +49,19 @@ module CoolXBRL
         def create_node_set(tables)
           #hash = {}
           tables.inject(NodeSet.new) do |node_set, table|
+            role = table.at_xpath("@xlink:role").to_s
+            consolidated_flag = table.at_xpath("//link:presentationArc[@xlink:from='jppfs_cor_ConsolidatedOrNonConsolidatedAxis' and @xlink:to='jppfs_cor_NonConsolidatedMember'").nil?
+
             Node.clear_class_variables
             table.xpath("link:presentationArc").each do |arc|
               parent_name = arc.at_xpath("@xlink:from").to_s
               child_name  = arc.at_xpath("@xlink:to").to_s
 
-              Node.new(parent:          { name: parent_name, locator: table.xpath("link:loc[@xlink:label='#{parent_name}']/@xlink:href").to_s },
-                       child:           { name: child_name, locator: table.xpath("link:loc[@xlink:label='#{child_name}']/@xlink:href").to_s },
-                       order:           arc.at_xpath("@order").to_s,
-                       preferred_label: arc.at_xpath("@preferredLabel").to_s)
+              Node.new(parent:            { name: parent_name, locator: table.xpath("link:loc[@xlink:label='#{parent_name}']/@xlink:href").to_s },
+                       child:             { name: child_name, locator: table.xpath("link:loc[@xlink:label='#{child_name}']/@xlink:href").to_s },
+                       order:             arc.at_xpath("@order").to_s,
+                       preferred_label:   arc.at_xpath("@preferredLabel").to_s),
+                       consolidated_flag: consolidated_flag
             end
 
             #hash[table.xpath("@xlink:role").to_s] = Node.top_node

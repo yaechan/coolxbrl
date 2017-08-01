@@ -7,17 +7,17 @@ module CoolXBRL
 
         attr_accessor :name, :locator, :children, :order, :preferred_label, :label, :data
 
-        def initialize(parent: nil, child: nil, order: nil, preferred_label: "")
+        def initialize(parent: nil, child: nil, order: nil, preferred_label: "", consolidated_flag: nil)
           preferred_label = preferred_label.empty? ? nil : preferred_label
 
           if parent_node = Node.exist?(parent[:name])
-            parent_node.children << create_children(child, order, preferred_label)
+            parent_node.children << create_children(child, order, preferred_label, consolidated_flag)
 
             #@@child_nodes << parent.children.last
           else
             @name     = parent[:name]
             @locator  = parent[:locator]
-            @children = child ? NodeSet[create_children(child, order, preferred_label)] : NodeSet.new
+            @children = child ? NodeSet[create_children(child, order, preferred_label, consolidated_flag)] : NodeSet.new
 
             @@nodes << self
             #@@child_nodes << @children.first if child_name
@@ -39,23 +39,23 @@ module CoolXBRL
 
         def to_csv(indent_flag=true)
           nodes = [[self, 0]]
-          consolidated_flag = nil
+          #consolidated_flag = nil
           CSV.generate do |csv|
             until nodes.empty?
               node, index = nodes.shift
               indent = "  " * (indent_flag ? index : 0)
-              if consolidated_flag.nil?
-                if node.name == "jppfs_cor_ConsolidatedMember"
-                  consolidated_flag = true
-                elsif node.name == "jppfs_cor_NonConsolidatedMember"
-                  consolidated_flag = false
-                end
-              end
+              #if consolidated_flag.nil?
+              #  if node.name == "jppfs_cor_ConsolidatedMember"
+              #    consolidated_flag = true
+              #  elsif node.name == "jppfs_cor_NonConsolidatedMember"
+              #    consolidated_flag = false
+              #  end
+              #end
 
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
-                  next if (consolidated_flag && /NonConsolidatedMember/ =~ context_ref) ||
-                          (!consolidated_flag && /NonConsolidatedMember/ !~ context_ref)
+                  #next if (consolidated_flag && /NonConsolidatedMember/ =~ context_ref) ||
+                  #        (!consolidated_flag && /NonConsolidatedMember/ !~ context_ref)
                   label_data = [indent + node.label, context_data[:label].join("|")]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
                     value = period_data[:value]
@@ -113,10 +113,10 @@ module CoolXBRL
         end
 
         private
-        def create_children(child, order, preferred_label)
+        def create_children(child, order, preferred_label, consolidated_flag)
           child_node = Node.exist?(child[:name]) || Node.new(parent: child)
           child_node.label ||= CoolXBRL::EDINET::Label.get_label(child[:locator], preferred_label)
-          child_node.data ||= CoolXBRL::EDINET::XBRL.get_data(child[:name], preferred_label)
+          child_node.data ||= CoolXBRL::EDINET::XBRL.get_data(child[:name], preferred_label, consolidated_flag)
           child_node.order = order
           child_node.preferred_label = preferred_label unless preferred_label.nil?
           child_node
