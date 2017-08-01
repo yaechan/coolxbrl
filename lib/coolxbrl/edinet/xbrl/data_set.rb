@@ -16,6 +16,10 @@ module CoolXBRL
         def has_context_ref?(context_ref)
           self.find {|data| data.context_ref == context_ref }
         end
+
+        def sort
+          self.sort_by{|data| data.period }
+        end
       end
     end
   end
