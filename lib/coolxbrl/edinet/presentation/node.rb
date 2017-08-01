@@ -46,14 +46,14 @@ module CoolXBRL
 
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
-                  label_data = [indent + node.label, context_data[:label].join("|") + "//" + context_ref.to_s]
+                  label_data = [indent + node.label, context_data[:label].join("|")]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
                     value = period_data[:value]
                     stack.push(value.empty? ? "-" : value, period_data[:period])
                   end
                 end
               else
-                csv << [indent + node.label + "//" + node.name]
+                csv << [indent + node.label]
               end
 
               nodes.unshift(*node.children_with_index(index + 1)) if node.children?
