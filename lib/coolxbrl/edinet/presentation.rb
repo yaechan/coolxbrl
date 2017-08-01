@@ -49,7 +49,6 @@ module CoolXBRL
         def create_node_set(tables)
           #hash = {}
           tables.inject(NodeSet.new) do |node_set, table|
-            #consolidated_flag = consolidated?(table)
             axis = get_axis(table)
 
             Node.clear_class_variables
@@ -57,22 +56,17 @@ module CoolXBRL
               parent_name = arc.at_xpath("@xlink:from").to_s
               child_name  = arc.at_xpath("@xlink:to").to_s
 
-              Node.new(parent:            { name: parent_name, locator: table.xpath("link:loc[@xlink:label='#{parent_name}']/@xlink:href").to_s },
-                       child:             { name: child_name, locator: table.xpath("link:loc[@xlink:label='#{child_name}']/@xlink:href").to_s },
-                       order:             arc.at_xpath("@order").to_s,
-                       preferred_label:   arc.at_xpath("@preferredLabel").to_s,
-#                       consolidated_flag: consolidated_flag)
-                       consolidated_flag:              axis)
+              Node.new(parent:          { name: parent_name, locator: table.xpath("link:loc[@xlink:label='#{parent_name}']/@xlink:href").to_s },
+                       child:           { name: child_name, locator: table.xpath("link:loc[@xlink:label='#{child_name}']/@xlink:href").to_s },
+                       order:           arc.at_xpath("@order").to_s,
+                       preferred_label: arc.at_xpath("@preferredLabel").to_s,
+                       axis:              axis)
             end
 
             #hash[table.xpath("@xlink:role").to_s] = Node.top_node
             node_set << Node.top_node
           end
           #hash
-        end
-
-        def consolidated?(table)
-          table.at_xpath("link:presentationArc[@xlink:from='jppfs_cor_ConsolidatedOrNonConsolidatedAxis' and @xlink:to='jppfs_cor_NonConsolidatedMember']").nil?
         end
 
         def get_axis(table)

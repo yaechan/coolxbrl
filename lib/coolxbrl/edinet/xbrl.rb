@@ -10,7 +10,7 @@ module CoolXBRL
           #get_data(xbrl_doc)
         end
 
-        def get_data(name, preferred_label, consolidated_flag)
+        def get_data(name, preferred_label, axis)
           doc = CoolXBRL::EDINET.xbrl
           doc.xpath("//#{name.gsub(/(?<=jppfs\_.{3}|jp.{3}\d{6}\-.{3}\_[EG]\d{5}\-\d{3})_|\_\d+$/, "_" => ":")}")
              .each_with_object(DataSet.new) do |data, stack|
@@ -18,22 +18,21 @@ module CoolXBRL
             stack << Data.new(data.at_xpath("text()").to_s,
                               context_ref,
                               data.at_xpath("@unitRef").to_s,
-                              data.at_xpath("@decimals").to_s) if consolidated_or_nonconsolidated?(context_ref,
-                                                                                                   consolidated_flag) &&
-                                                                  period_start_or_end?(context_ref, preferred_label) &&
+                              data.at_xpath("@decimals").to_s) if axis_ok?(context_ref, axis) &&
+                                                                  period_ok?(context_ref, preferred_label) &&
                                                                   !stack.has_context_ref?(context_ref)
           end
         end
 
-        def consolidated_or_nonconsolidated?(context_ref, consolidated_flag)
-          #(/\_NonConsolidatedMember/ =~ context_ref).nil? == consolidated_flag
+        def axis_ok?(context_ref, axis)
           context_member = context_ref.scan(/(?<=Instant\_|Duration\_).+Member$/)[0]
-          (/\_NonConsolidatedMember/ =~ context_ref).nil? == consolidated_flag.include?("ConsolidatedMember") &&
+
+          (/\_NonConsolidatedMember/ =~ context_ref).nil? == axis.include?("ConsolidatedMember") &&
           (context_member.nil? ||
-           consolidated_flag.include?(context_member))
+           axis.include?(context_member))
         end
 
-        def period_start_or_end?(context_ref, preferred_label)
+        def period_ok?(context_ref, preferred_label)
           return true unless preferred_label == "http://www.xbrl.org/2003/role/periodStartLabel" ||
                              preferred_label == "http://www.xbrl.org/2003/role/periodEndLabel"
 

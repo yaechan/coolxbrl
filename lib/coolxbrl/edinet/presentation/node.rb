@@ -7,17 +7,17 @@ module CoolXBRL
 
         attr_accessor :name, :locator, :children, :order, :preferred_label, :label, :data
 
-        def initialize(parent: nil, child: nil, order: nil, preferred_label: "", consolidated_flag: nil)
+        def initialize(parent: nil, child: nil, order: nil, preferred_label: "", axis: [])
           preferred_label = preferred_label.empty? ? nil : preferred_label
 
           if parent_node = Node.exist?(parent[:name])
-            parent_node.children << create_children(child, order, preferred_label, consolidated_flag)
+            parent_node.children << create_children(child, order, preferred_label, axis)
 
             #@@child_nodes << parent.children.last
           else
             @name     = parent[:name]
             @locator  = parent[:locator]
-            @children = child ? NodeSet[create_children(child, order, preferred_label, consolidated_flag)] : NodeSet.new
+            @children = child ? NodeSet[create_children(child, order, preferred_label, axis)] : NodeSet.new
 
             @@nodes << self
             #@@child_nodes << @children.first if child_name
@@ -103,10 +103,10 @@ module CoolXBRL
         end
 
         private
-        def create_children(child, order, preferred_label, consolidated_flag)
+        def create_children(child, order, preferred_label, axis)
           child_node = Node.exist?(child[:name]) || Node.new(parent: child)
           child_node.label ||= CoolXBRL::EDINET::Label.get_label(child[:locator], preferred_label)
-          child_node.data ||= CoolXBRL::EDINET::XBRL.get_data(child[:name], preferred_label, consolidated_flag)
+          child_node.data ||= CoolXBRL::EDINET::XBRL.get_data(child[:name], preferred_label, axis)
           child_node.order = order
           child_node.preferred_label = preferred_label unless preferred_label.nil?
           child_node
