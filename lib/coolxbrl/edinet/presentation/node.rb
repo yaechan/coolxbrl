@@ -37,28 +37,45 @@ module CoolXBRL
                        .map{|child| [child, index] }
         end
 
-        def to_csv(indent_flag=true)
-          nodes = [[self, 0]]
+        def to_csv(indent_flag=true, header_flag=true)
+          nodes = [[self, -1]]
+          header = []
           CSV.generate do |csv|
             until nodes.empty?
               node, index = nodes.shift
-              indent = "  " * (indent_flag ? index : 0)
+              indent = "  " * ((indent_flag && index >= 0) ? index : 0)
 
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
                   label_data = [indent + node.label, context_data[:label].join("|")]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
                     value = period_data[:value]
-                    stack.push(value.empty? ? "-" : value, period_data[:period])
+                    header << period_data[:period] unless header.length == 4
+                    stack.push(value.empty? ? "-" : value)
                   end
                 end
               else
-                csv << [indent + node.label]
+                if /(?<=\_)[^\_]+(Heading|Table|Axis|Member)$/ =~ node.name
+                  match = $&
+                  case match
+                  when /Heading/
+                    header[0] = node.label
+                  when /Axis/
+                    current_axis = match
+                  when /Member/
+                    header[1] = node.label if current_axis == "ConsolidatedOrNonConsolidatedAxis"
+                  end
+
+                  csv << [indent + node.label] if header_flag && $& != "Heading"
+                else
+                  csv << [indent + node.label]
+                end
               end
 
               nodes.unshift(*node.children_with_index(index + 1)) if node.children?
             end
-          end.insert("勘定科目,メンバー,xxxx/xx/xx,yyyy/yy/yy\n")
+          end.gsub(/^#{header[0]}$/).with_index(1) {|row, index| index == (header_flag ? 2 : 1) ? header.join(",") : row }
+          #end.insert(0, header.join(",") + "\n")
         end
 
         class << self
