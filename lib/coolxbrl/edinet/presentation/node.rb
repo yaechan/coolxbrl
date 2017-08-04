@@ -43,7 +43,7 @@ module CoolXBRL
           CSV.generate do |csv|
             until nodes.empty?
               node, index = nodes.shift
-              indent = "  " * (indent_flag ? index : 0)
+              indent = "  " * ((indent_flag && index >= 0) ? index : 0)
 
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
