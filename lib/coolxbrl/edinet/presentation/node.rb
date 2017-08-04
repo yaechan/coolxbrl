@@ -56,6 +56,7 @@ module CoolXBRL
                 end
               else
                 if /(?<=\_)[^\_]+(Heading|Table|Axis|Member)$/ =~ node.name
+                  puts "aaa"
                   case $&
                   when "Axis"
                     current_axis = $&
