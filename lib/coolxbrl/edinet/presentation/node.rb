@@ -63,11 +63,10 @@ module CoolXBRL
                   when /Axis/
                     current_axis = match
                   when /Member/
-                    #puts node.label
-                    #puts current_axis
                     header[1] = node.label if current_axis == "ConsolidatedOrNonConsolidatedAxis"
                   end
-                  csv << [indent + node.label] if header_flag
+
+                  csv << [indent + node.label] if header_flag && $& != "Heading"
                 else
                   csv << [indent + node.label]
                 end
