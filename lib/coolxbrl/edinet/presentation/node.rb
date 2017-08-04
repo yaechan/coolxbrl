@@ -38,7 +38,7 @@ module CoolXBRL
         end
 
         def to_csv(indent_flag=true)
-          nodes = [[self, 0]]
+          nodes = [[self, -1]]
           header = []
           CSV.generate do |csv|
             until nodes.empty?
@@ -50,7 +50,8 @@ module CoolXBRL
                   label_data = [indent + node.label, context_data[:label].join("|")]
                   csv << context_data[:data].inject(label_data) do |stack, period_data|
                     value = period_data[:value]
-                    stack.push(value.empty? ? "-" : value, period_data[:period])
+                    header << period_data[:period] unless header.length == 4
+                    stack.push(value.empty? ? "-" : value)
                   end
                 end
               else
