@@ -7,7 +7,7 @@ file_path = "S:/201708_xbrl/data/S100AG14"
 #pp CoolXBRL::EDINET.parse(file_path)
 #pp CoolXBRL::EDINET.parse_table(file_path, true, :cf, :ja)
 
-puts CoolXBRL::EDINET.parse_table(file_path, true, :cs, :ja).to_csv(true, true)
+puts CoolXBRL::EDINET.parse_table(file_path, true, :cs, :ja).to_csv(true, false)
 
 #CoolXBRL::EDINET.parse(file_path).each do |role, node|
 #  puts node.label
