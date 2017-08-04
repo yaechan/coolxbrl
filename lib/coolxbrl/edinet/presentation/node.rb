@@ -55,13 +55,14 @@ module CoolXBRL
                 end
               else
                 if /(?<=\_)[^\_]+(Heading|Table|Axis|Member)$/ =~ node.name
-                  puts "aaa"
                   case $&
                   when /Heading/
                     header[0] = node.label
                   when /Axis/
                     current_axis = $&
                   when /Member/
+                    puts node.label
+                    puts current_axis
                     header[1] = node.label if current_axis == "ConsolidatedOrNonConsolidatedAxis"
                   end
                 else
