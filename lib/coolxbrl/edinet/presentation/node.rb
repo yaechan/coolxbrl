@@ -74,7 +74,7 @@ module CoolXBRL
 
               nodes.unshift(*node.children_with_index(index + 1)) if node.children?
             end
-          end.gsub(/^#{header[0]}$/).with_index(1) {|row, index| index == 2 ? header.join(",") : $& }
+          end.gsub(/^#{header[0]}$/).with_index(1) {|row, index| index == (header_flag ? 2 : 1) ? header.join(",") : $& }
           #end.insert(0, header.join(",") + "\n")
         end
 
