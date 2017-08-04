@@ -44,7 +44,6 @@ module CoolXBRL
             until nodes.empty?
               node, index = nodes.shift
               indent = "  " * (indent_flag ? index : 0)
-              header << node.label if header.empty?
 
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
@@ -58,11 +57,11 @@ module CoolXBRL
                 if /(?<=\_)[^\_]+(Heading|Table|Axis|Member)$/ =~ node.name
                   puts "aaa"
                   case $&
-                  when "Axis"
+                  when /Heading/
+                    header[0] = node.label
+                  when /Axis/
                     current_axis = $&
-                  when "Member"
-                    puts node.label
-                    puts current_axis
+                  when /Member/
                     header[1] = node.label if current_axis == "ConsolidatedOrNonConsolidatedAxis"
                   end
                 else
