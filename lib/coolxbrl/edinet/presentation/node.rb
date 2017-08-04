@@ -39,11 +39,13 @@ module CoolXBRL
 
         def to_csv(indent_flag=true)
           nodes = [[self, 0]]
+          header = []
           CSV.generate do |csv|
             until nodes.empty?
               node, index = nodes.shift
               indent = "  " * (indent_flag ? index : 0)
-csv.unshift(["勘定科目","メンバー","xxxx/xx/xx","yyyy/yy/yy"]) if index == 1
+              header << node.label if header.empty?
+
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
                   label_data = [indent + node.label, context_data[:label].join("|")]
@@ -53,12 +55,21 @@ csv.unshift(["勘定科目","メンバー","xxxx/xx/xx","yyyy/yy/yy"]) if index 
                   end
                 end
               else
-                csv << [indent + node.label]
+                if /(?<=\_)[^\_]+(Heading|Axis|Member)$/ =~ node.name
+                  case $&
+                  when "Axis"
+                    current_axis = node.name
+                  when "Member"
+                    header[1] = node.label if current_axis == "ConsolidatedOrNonConsolidatedAxis"
+                  end
+                else
+                  csv << [indent + node.label]
+                end
               end
 
               nodes.unshift(*node.children_with_index(index + 1)) if node.children?
             end
-          end#.insert(0, "勘定科目,メンバー,xxxx/xx/xx,yyyy/yy/yy\n")
+          end.insert(0, header.join(",") + "\n")
         end
 
         class << self
