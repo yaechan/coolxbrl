@@ -60,6 +60,8 @@ module CoolXBRL
                   when "Axis"
                     current_axis = $&
                   when "Member"
+                    puts node.label
+                    puts current_axis
                     header[1] = node.label if current_axis == "ConsolidatedOrNonConsolidatedAxis"
                   end
                 else
