@@ -43,7 +43,7 @@ module CoolXBRL
             until nodes.empty?
               node, index = nodes.shift
               indent = "  " * (indent_flag ? index : 0)
-csv.unshift(["勘定科目","メンバー","xxxx/xx/xx","yyyy/yy/yy") if index == 1
+csv.unshift(["勘定科目","メンバー","xxxx/xx/xx","yyyy/yy/yy"]) if index == 1
               if node.data?
                 node.data.to_hash.each do |context_ref, context_data|
                   label_data = [indent + node.label, context_data[:label].join("|")]
