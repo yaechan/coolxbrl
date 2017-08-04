@@ -74,7 +74,8 @@ module CoolXBRL
 
               nodes.unshift(*node.children_with_index(index + 1)) if node.children?
             end
-          end.insert(0, header.join(",") + "\n")
+          end.sub(/^#{header[0]}$/, header.join(",") + "\n")
+          #end.insert(0, header.join(",") + "\n")
         end
 
         class << self
