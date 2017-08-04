@@ -4,8 +4,8 @@ module CoolXBRL
       class NodeSet < Array
         include Set
 
-        def to_csv(indent_flag=true)
-          self.map {|node| node.to_csv(indent_flag) }
+        def to_csv(indent_flag=true, header_flag=true)
+          self.map {|node| node.to_csv(indent_flag, header_flag) }
         end
       end
     end

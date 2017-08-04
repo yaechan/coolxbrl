@@ -37,7 +37,7 @@ module CoolXBRL
                        .map{|child| [child, index] }
         end
 
-        def to_csv(indent_flag=true)
+        def to_csv(indent_flag=true, header_flag=true)
           nodes = [[self, -1]]
           header = []
           CSV.generate do |csv|
@@ -67,6 +67,7 @@ module CoolXBRL
                     #puts current_axis
                     header[1] = node.label if current_axis == "ConsolidatedOrNonConsolidatedAxis"
                   end
+                  csv << [indent + node.label] if header_flag
                 else
                   csv << [indent + node.label]
                 end
