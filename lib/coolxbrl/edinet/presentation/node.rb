@@ -58,7 +58,7 @@ module CoolXBRL
 
               nodes.unshift(*node.children_with_index(index + 1)) if node.children?
             end
-          end.insert("勘定科目,メンバー,xxxx/xx/xx,yyyy/yy/yy\n")
+          end.insert(0, "勘定科目,メンバー,xxxx/xx/xx,yyyy/yy/yy\n")
         end
 
         class << self
