@@ -1,6 +1,6 @@
 require "coolxbrl/edinet/xbrl/data_set"
 require "coolxbrl/edinet/xbrl/data"
-require "pry"
+#require "pry"
 
 module CoolXBRL
   module EDINET
@@ -25,11 +25,11 @@ module CoolXBRL
         end
 
         def axis_ok?(context_ref, axis)
-          context_member = context_ref.scan(/(?<=Instant\_|Duration\_).+Member$/)[0]
+          context_members = context_ref.scan(/(?<=\_).+?Member/)
 
           (/\_NonConsolidatedMember/ =~ context_ref).nil? == axis.include?("ConsolidatedMember") &&
-          (context_member.nil? ||
-           axis.include?(context_member))
+          (context_members.count == 0 ||
+           context_members.all? {|context_member| axis.include?(context_member) })
         end
 
         def period_ok?(context_ref, preferred_label)
