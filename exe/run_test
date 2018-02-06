@@ -1,0 +1,7 @@
+require "coolxbrl"
+require "pp"
+
+
+data_directory = "S:/201708_xbrl/data/S100AG14"
+
+puts CoolXBRL::EDINET.parse_table(data_directory, false, :cs, :ja).to_csv(true, true)
