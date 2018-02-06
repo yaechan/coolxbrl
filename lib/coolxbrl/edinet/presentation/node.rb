@@ -1,3 +1,5 @@
+require "csv"
+
 module CoolXBRL
   module EDINET
     class Presentation

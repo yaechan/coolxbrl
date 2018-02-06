@@ -1,6 +1,5 @@
 require "coolxbrl/edinet/xbrl/data_set"
 require "coolxbrl/edinet/xbrl/data"
-#require "pry"
 
 module CoolXBRL
   module EDINET
